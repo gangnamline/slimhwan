@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Line Clinic – Slim-Hwan Diet Consultation</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;600&family=Noto+Sans+Thai:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #1a1a1a;
+    --sage-light: #555555;
+    --sage-pale: #f0f0f0;
+    --cream: #f7f7f7;
+    --warm-white: #ffffff;
+    --charcoal: #111111;
+    --mid: #555555;
+    --light: #999999;
+    --border: #e0e0e0;
+    --accent: #111111;
+    --error: #d32f2f;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: #ffffff;
+    padding: 48px 20px 36px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .header::before { display: none; }
+  .header-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #999999;
+    margin-bottom: 14px;
+  }
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 300;
+    font-style: italic;
+    color: #111111;
+    line-height: 1.2;
+  }
+  .header-sub {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #999999;
+    letter-spacing: 1px;
+  }
+
+  /* ── Language Selector ── */
+  .lang-bar {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .lang-btn {
+    padding: 7px 16px;
+    border-radius: 30px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all .2s;
+    letter-spacing: .3px;
+  }
+  .lang-btn:hover { border-color: var(--sage); color: var(--sage); }
+  .lang-btn.active {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ── Form Container ── */
+  .form-wrap {
+    max-width: 700px;
+    margin: 36px auto 60px;
+    padding: 0 20px;
+  }
+
+  /* ── Section ── */
+  .section {
+    background: var(--warm-white);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 24px 24px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #999999;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    background: #111111;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    margin-right: 8px;
+  }
+
+  /* ── Fields ── */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 7px;
+    letter-spacing: .2px;
+  }
+  label .req { color: var(--accent); margin-left: 3px; }
+
+  input[type=text], input[type=tel], input[type=number], input[type=date],
+  select, textarea {
+    width: 100%;
+    padding: 11px 15px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--cream);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--charcoal);
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(122,158,126,.12);
+    background: var(--warm-white);
+  }
+  input.error, select.error, textarea.error {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(192,57,43,.08);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  select { cursor: pointer; }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:480px) { .row2 { grid-template-columns: 1fr; } }
+
+  /* ── Radio / Checkbox ── */
+  .radio-group, .check-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .radio-group label, .check-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    color: var(--mid);
+    padding: 8px 15px;
+    border: 1.5px solid var(--border);
+    border-radius: 30px;
+    transition: all .2s;
+    margin: 0;
+    user-select: none;
+  }
+  .radio-group input[type=radio],
+  .check-group input[type=checkbox] { display: none; }
+  .radio-group label:has(input:checked),
+  .check-group label:has(input:checked) {
+    background: var(--sage-pale);
+    border-color: var(--sage);
+    color: var(--sage);
+    font-weight: 500;
+  }
+
+  /* ── Price Card ── */
+  .price-card {
+    background: #f7f7f7;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .price-card h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999999;
+    margin-bottom: 12px;
+  }
+  .price-list { list-style: none; }
+  .price-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--mid);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-list li:last-child { border: none; }
+  .price-list li::before {
+    content: '—';
+    color: #cccccc;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .price-highlight { color: #111111; font-weight: 600; }
+
+  /* ── Consent ── */
+  .consent-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 14px;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  .consent-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+  .consent-check input { display: none; }
+  .custom-cb {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  .consent-check input:checked ~ .custom-cb {
+    background: var(--sage);
+    border-color: var(--sage);
+  }
+  .custom-cb::after {
+    content: '';
+    width: 10px; height: 6px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translateY(-1px);
+    opacity: 0;
+    transition: opacity .15s;
+  }
+  .consent-check input:checked ~ .custom-cb::after { opacity: 1; }
+
+  /* ── Submit ── */
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #111111;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    margin-top: 10px;
+  }
+  .submit-btn:hover {
+    background: #333333;
+    transform: translateY(-1px);
+  }
+  .submit-btn:active { transform: translateY(0); }
+
+  /* ── Error msg ── */
+  .err-msg {
+    font-size: 11px;
+    color: var(--error);
+    margin-top: 5px;
+    display: none;
+  }
+  .show-err .err-msg { display: block; }
+
+  /* ── Success ── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .success-screen.visible { display: block; }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 28px;
+  }
+  .success-screen h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: #111111;
+    margin-bottom: 12px;
+  }
+  .success-screen p {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  /* ── Conditional ── */
+  .conditional { display: none; }
+  .conditional.visible { display: block; }
+
+  /* ── Note ── */
+  .note {
+    font-size: 12px;
+    color: var(--light);
+    margin-top: 5px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">LINE CLINIC</div>
+  <div class="header-title">Slim-Hwan<br>Diet Consultation</div>
+  <div class="header-sub" id="hdr-sub">Please select your language below</div>
+</div>
+
+<!-- LANGUAGE BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('en')">🇬🇧 English</button>
+  <button class="lang-btn" onclick="setLang('id')">🇮🇩 Indonesia</button>
+  <button class="lang-btn" onclick="setLang('ja')">🇯🇵 日本語</button>
+  <button class="lang-btn" onclick="setLang('zh')">🇨🇳 中文</button>
+  <button class="lang-btn" onclick="setLang('th')">🇹🇭 ภาษาไทย</button>
+  <button class="lang-btn" onclick="setLang('vi')">🇻🇳 Tiếng Việt</button>
+</div>
+
+<!-- MAIN FORM -->
+<div class="form-wrap" id="form-wrap">
+<form id="mainForm" novalidate>
+
+  <!-- §1 Personal Info -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">1</span><span id="s1-title">Personal Information</span></div>
+
+    <div class="field">
+      <label id="l-name">Full Name <span class="req">*</span></label>
+      <input type="text" id="f-name" placeholder="">
+    </div>
+
+    <div class="field">
+      <label id="l-dob">Date of Birth <span class="req">*</span></label>
+      <div class="row2">
+        <input type="date" id="f-dob">
+        <input type="number" id="f-age" min="10" max="100" placeholder="Age">
+      </div>
+    </div>
+
+    <div class="field">
+      <label id="l-gender">Gender <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="gender" value="female"><span id="g-female">Female</span></label>
+        <label><input type="radio" name="gender" value="male"><span id="g-male">Male</span></label>
+      </div>
+    </div>
+
+    <!-- Pregnancy (female only) -->
+    <div class="field conditional" id="preg-field">
+      <label id="l-preg">Are you currently pregnant or breastfeeding? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="pregnant" value="yes"><span id="preg-yes">Yes</span></label>
+        <label><input type="radio" name="pregnant" value="no"><span id="preg-no">No</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- §2 Contact -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">2</span><span id="s2-title">Contact Information</span></div>
+
+    <div class="field">
+      <label id="l-phone">Phone Number</label>
+      <input type="tel" id="f-phone" placeholder="+1 000 000 0000">
+    </div>
+    <div class="field">
+      <label id="l-kakao">KakaoTalk ID</label>
+      <input type="text" id="f-kakao" placeholder="kakao ID">
+    </div>
+    <div class="field">
+      <label id="l-insta">Instagram ID</label>
+      <input type="text" id="f-insta" placeholder="@username">
+    </div>
+    <div class="field">
+      <label id="l-line">LINE ID</label>
+      <input type="text" id="f-line" placeholder="LINE ID">
+    </div>
+    <p class="note" id="contact-note">※ Please fill in at least one contact method.</p>
+  </div>
+
+  <!-- §3 Body Info -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">3</span><span id="s3-title">Body Information</span></div>
+
+    <div class="row2">
+      <div class="field">
+        <label id="l-height">Height (cm) <span class="req">*</span></label>
+        <input type="number" id="f-height" min="100" max="250" placeholder="cm">
+      </div>
+      <div class="field">
+        <label id="l-weight">Current Weight (kg) <span class="req">*</span></label>
+        <input type="number" id="f-weight" min="30" max="300" placeholder="kg">
+      </div>
+    </div>
+    <div class="field">
+      <label id="l-goal">Goal Weight (kg) <span class="req">*</span></label>
+      <input type="number" id="f-goal" min="30" max="300" placeholder="kg">
+    </div>
+  </div>
+
+  <!-- §4 Caffeine -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">4</span><span id="s4-title">Caffeine Habits</span></div>
+
+    <div class="field">
+      <label id="l-coffee">Cups of coffee per day <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="coffee" value="0"><span id="cof0">0</span></label>
+        <label><input type="radio" name="coffee" value="1"><span id="cof1">1</span></label>
+        <label><input type="radio" name="coffee" value="2"><span id="cof2">2</span></label>
+        <label><input type="radio" name="coffee" value="3"><span id="cof3">3</span></label>
+        <label><input type="radio" name="coffee" value="4+"><span id="cof4">4+</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label id="l-caf-sens">Caffeine sensitivity <span class="req">*</span><br><small id="l-caf-note" style="font-weight:300;color:var(--light)">Do you experience palpitations or insomnia after coffee / green tea?</small></label>
+      <div class="radio-group">
+        <label><input type="radio" name="caffeine_sens" value="yes"><span id="cafsens-yes">Yes</span></label>
+        <label><input type="radio" name="caffeine_sens" value="no"><span id="cafsens-no">No</span></label>
+        <label><input type="radio" name="caffeine_sens" value="sometimes"><span id="cafsens-some">Sometimes</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- §5 Diet History -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">5</span><span id="s5-title">Diet History</span></div>
+
+    <div class="field">
+      <label id="l-diet-exp">Previous diet experience <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="diet_exp" value="none" id="diet-none"><span id="dexp-none">None</span></label>
+        <label><input type="radio" name="diet_exp" value="diet_only" id="diet-only"><span id="dexp-diet">Diet/Exercise only</span></label>
+        <label><input type="radio" name="diet_exp" value="western_med"><span id="dexp-west">Western medicine</span></label>
+        <label><input type="radio" name="diet_exp" value="herbal"><span id="dexp-herb">Herbal medicine</span></label>
+        <label><input type="radio" name="diet_exp" value="both"><span id="dexp-both">Both</span></label>
+      </div>
+    </div>
+
+    <!-- conditional: meds taken -->
+    <div class="field conditional" id="med-exp-field">
+      <label id="l-appetite">When taking diet medication <span class="req">*</span></label>
+      <div class="row2">
+        <div>
+          <label id="l-app-ctrl" style="font-size:12px;color:var(--light)">Appetite control?</label>
+          <div class="radio-group" style="margin-top:6px">
+            <label><input type="radio" name="appetite_ctrl" value="good"><span id="app-good">Good</span></label>
+            <label><input type="radio" name="appetite_ctrl" value="moderate"><span id="app-mod">Moderate</span></label>
+            <label><input type="radio" name="appetite_ctrl" value="poor"><span id="app-poor">Poor</span></label>
+          </div>
+        </div>
+        <div>
+          <label id="l-side-eff" style="font-size:12px;color:var(--light)">Side effects?</label>
+          <textarea id="f-side-eff" rows="2" placeholder="e.g. dry mouth, insomnia…"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- §6 Medical -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">6</span><span id="s6-title">Medical Information</span></div>
+
+    <div class="field">
+      <label id="l-meds">Current medications or medical conditions <span class="req">*</span></label>
+      <textarea id="f-meds" rows="3" placeholder="None / List any conditions or medications"></textarea>
+    </div>
+  </div>
+
+  <!-- §7 Order -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">7</span><span id="s7-title">Order Details</span></div>
+
+    <!-- Price Card -->
+    <div class="price-card">
+      <h3 id="price-title">✦ Slim-Hwan Pricing</h3>
+      <ul class="price-list">
+        <li><span id="p1">1 month — <span class="price-highlight">₩150,000</span></span></li>
+        <li><span id="p3">3+ months — <span class="price-highlight">₩130,000 / month</span></span></li>
+        <li><span id="pship">International shipping fee: separate</span></li>
+      </ul>
+    </div>
+
+    <div class="field">
+      <label id="l-months">How many months would you like to order? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="months" value="1"><span id="m1">1 month</span></label>
+        <label><input type="radio" name="months" value="3"><span id="m3">3 months</span></label>
+        <label><input type="radio" name="months" value="6"><span id="m6">6 months</span></label>
+        <label><input type="radio" name="months" value="12"><span id="m12">12 months</span></label>
+        <label><input type="radio" name="months" value="other"><span id="mOther">Other</span></label>
+      </div>
+    </div>
+    <div class="field conditional" id="months-other-field">
+      <label id="l-months-other">Please specify (months) <span class="req">*</span></label>
+      <input type="number" id="f-months-other" min="1" max="60" placeholder="e.g. 2">
+    </div>
+
+    <div class="field">
+      <label id="l-delivery">Delivery preference <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="delivery" value="ship"><span id="d-ship">Delivery</span></label>
+        <label><input type="radio" name="delivery" value="pickup"><span id="d-pick">In-clinic pickup</span></label>
+      </div>
+    </div>
+
+    <div class="field conditional" id="addr-field">
+      <label id="l-addr">Shipping Address <span class="req">*</span></label>
+      <textarea id="f-addr" rows="3" placeholder="Full address including country"></textarea>
+    </div>
+  </div>
+
+  <!-- §8 Notes -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">8</span><span id="s8-title">Additional Notes</span></div>
+    <div class="field">
+      <label id="l-notes">Any additional information you'd like to share</label>
+      <textarea id="f-notes" rows="4" placeholder="Optional…"></textarea>
+    </div>
+  </div>
+
+  <!-- §9 Consent -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">9</span><span id="s9-title">Privacy Consent</span></div>
+    <div class="consent-box" id="consent-text">
+      LINE CLINIC collects the personal information provided in this form (name, contact, health information) solely for the purpose of processing your Slim-Hwan consultation and order. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.
+    </div>
+    <label class="consent-check">
+      <input type="checkbox" id="f-consent">
+      <div class="custom-cb"></div>
+      <span id="l-consent">I agree to the collection and use of my personal information. <span class="req">*</span></span>
+    </label>
+  </div>
+
+  <button type="submit" class="submit-btn" id="submit-btn">Send via KakaoTalk →</button>
+
+</form>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">🌿</div>
+  <h2 id="suc-title">Thank you!</h2>
+
+  <div style="background:#f7f7f7;border:1px solid #e0e0e0;border-radius:10px;padding:22px 20px;margin:20px 0;text-align:left;">
+    <p style="font-size:11px;font-weight:600;color:#999999;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;" id="suc-steps-title">📋 How to send your form:</p>
+    <ol style="padding-left:18px;display:flex;flex-direction:column;gap:10px;">
+      <li style="font-size:13px;color:var(--mid);line-height:1.6;" id="suc-step1">Your consultation has been <strong>copied to clipboard</strong> ✅</li>
+      <li style="font-size:13px;color:var(--mid);line-height:1.6;" id="suc-step2">Open <strong>KakaoTalk</strong> and search for ID: <span style="background:#fff;border:1.5px solid #cccccc;border-radius:4px;padding:2px 8px;font-weight:700;color:#111111;font-size:13px;">bfhani7</span></li>
+      <li style="font-size:13px;color:var(--mid);line-height:1.6;" id="suc-step3">Add as a friend, then <strong>paste and send</strong> the copied message</li>
+    </ol>
+  </div>
+
+  <button onclick="copyAgain()" style="width:100%;padding:13px;background:#111111;color:#fff;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-family:'DM Sans',sans-serif;border:none;border-radius:8px;cursor:pointer;margin-bottom:10px;" id="copy-again-btn">📋 Copy again</button>
+  <p style="font-size:11px;color:var(--light);" id="suc-copy-note">Tap the button if you need to copy the form again.</p>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════════ */
+const T = {
+  en: {
+    hdrSub: "Please select your language below",
+    s1:"Personal Information", s2:"Contact Information", s3:"Body Information",
+    s4:"Caffeine Habits", s5:"Diet History", s6:"Medical Information",
+    s7:"Order Details", s8:"Additional Notes", s9:"Privacy Consent",
+    lName:"Full Name", lDob:"Date of Birth", lGender:"Gender",
+    gFemale:"Female", gMale:"Male",
+    lPreg:"Are you currently pregnant or breastfeeding?",
+    pregYes:"Yes", pregNo:"No",
+    lPhone:"Phone Number", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
+    contactNote:"※ Please fill in at least one contact method.",
+    lHeight:"Height (cm)", lWeight:"Current Weight (kg)", lGoal:"Goal Weight (kg)",
+    lCoffee:"Cups of coffee per day",
+    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4+",
+    lCafSens:"Caffeine sensitivity",
+    lCafNote:"Do you experience palpitations or insomnia after coffee / green tea?",
+    cafYes:"Yes", cafNo:"No", cafSome:"Sometimes",
+    lDietExp:"Previous diet experience",
+    dNone:"None", dDiet:"Diet/Exercise only", dWest:"Western medicine",
+    dHerb:"Herbal medicine", dBoth:"Both",
+    lAppetite:"When taking diet medication",
+    lAppCtrl:"Appetite control?", appGood:"Good", appMod:"Moderate", appPoor:"Poor",
+    lSideEff:"Side effects?", sideEffPH:"e.g. dry mouth, insomnia…",
+    lMeds:"Current medications or medical conditions",
+    medsPH:"None / List any conditions or medications",
+    priceTitle:"✦ Slim-Hwan Pricing",
+    p1:"1 month — ₩150,000", p3:"3+ months — ₩130,000 / month",
+    pShip:"International shipping fee: separate",
+    lMonths:"How many months would you like to order?",
+    m1:"1 month", m3:"3 months", m6:"6 months", m12:"12 months", mOther:"Other",
+    lMonthsOther:"Please specify (months)",
+    lDelivery:"Delivery preference",
+    dShip:"Delivery", dPick:"In-clinic pickup",
+    lAddr:"Shipping Address", addrPH:"Full address including country",
+    lNotes:"Any additional information you'd like to share", notesPH:"Optional…",
+    consentText:"LINE CLINIC collects the personal information provided in this form (name, contact, health information) solely for the purpose of processing your Slim-Hwan consultation and order. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.",
+    lConsent:"I agree to the collection and use of my personal information.",
+    submitBtn:"Send via KakaoTalk →",
+    sucTitle:"Thank you!",
+    sucStepsTitle:"📋 How to send your form:",
+    sucStep1:"Your consultation has been <strong>copied to clipboard</strong> ✅",
+    sucStep2:"Open <strong>KakaoTalk</strong> and search for ID: <span style=\"background:#fff;border:1.5px solid #cccccc;border-radius:4px;padding:2px 8px;font-weight:700;color:#111111;font-size:13px;\">bfhani7</span>",
+    sucStep3:"Add as a friend, then <strong>paste and send</strong> the copied message",
+    copyAgainBtn:"📋 Copy again", copiedFeedback:"✅ Copied!",
+    sucCopyNote:"Tap the button if you need to copy the form again.",
+    errRequired:"This field is required.",
+    errContact:"Please provide at least one contact method.",
+    agePH:"Age", heightPH:"cm", weightPH:"kg", goalPH:"kg",
+  },
+  id: {
+    hdrSub:"Silakan pilih bahasa Anda di bawah",
+    s1:"Informasi Pribadi", s2:"Informasi Kontak", s3:"Informasi Tubuh",
+    s4:"Kebiasaan Kafein", s5:"Riwayat Diet", s6:"Informasi Medis",
+    s7:"Detail Pesanan", s8:"Catatan Tambahan", s9:"Persetujuan Privasi",
+    lName:"Nama Lengkap", lDob:"Tanggal Lahir", lGender:"Jenis Kelamin",
+    gFemale:"Perempuan", gMale:"Laki-laki",
+    lPreg:"Apakah Anda sedang hamil atau menyusui?",
+    pregYes:"Ya", pregNo:"Tidak",
+    lPhone:"Nomor Telepon", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
+    contactNote:"※ Harap isi setidaknya satu metode kontak.",
+    lHeight:"Tinggi Badan (cm)", lWeight:"Berat Badan Saat Ini (kg)", lGoal:"Berat Badan Target (kg)",
+    lCoffee:"Berapa cangkir kopi per hari",
+    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4+",
+    lCafSens:"Sensitivitas kafein",
+    lCafNote:"Apakah Anda mengalami jantung berdebar atau insomnia setelah minum kopi / teh hijau?",
+    cafYes:"Ya", cafNo:"Tidak", cafSome:"Kadang-kadang",
+    lDietExp:"Pengalaman diet sebelumnya",
+    dNone:"Tidak ada", dDiet:"Diet/Olahraga saja", dWest:"Obat Barat",
+    dHerb:"Obat herbal", dBoth:"Keduanya",
+    lAppetite:"Saat mengonsumsi obat diet",
+    lAppCtrl:"Kontrol nafsu makan?", appGood:"Baik", appMod:"Sedang", appPoor:"Kurang",
+    lSideEff:"Efek samping?", sideEffPH:"mis. mulut kering, insomnia…",
+    lMeds:"Obat yang sedang dikonsumsi atau kondisi medis",
+    medsPH:"Tidak ada / Sebutkan kondisi atau obat",
+    priceTitle:"✦ Harga Slim-Hwan",
+    p1:"1 bulan — ₩150.000", p3:"3+ bulan — ₩130.000 / bulan",
+    pShip:"Biaya pengiriman internasional: terpisah",
+    lMonths:"Berapa bulan yang ingin Anda pesan?",
+    m1:"1 bulan", m3:"3 bulan", m6:"6 bulan", m12:"12 bulan", mOther:"Lainnya",
+    lMonthsOther:"Mohon tentukan (bulan)",
+    lDelivery:"Preferensi pengiriman",
+    dShip:"Pengiriman", dPick:"Ambil di klinik",
+    lAddr:"Alamat Pengiriman", addrPH:"Alamat lengkap termasuk negara",
+    lNotes:"Informasi tambahan yang ingin Anda sampaikan", notesPH:"Opsional…",
+    consentText:"LINE CLINIC mengumpulkan informasi pribadi yang diberikan dalam formulir ini (nama, kontak, informasi kesehatan) semata-mata untuk keperluan konsultasi dan pemesanan Slim-Hwan Anda. Data Anda tidak akan dibagikan kepada pihak ketiga tanpa persetujuan Anda.",
+    lConsent:"Saya menyetujui pengumpulan dan penggunaan informasi pribadi saya.",
+    submitBtn:"Kirim via KakaoTalk →",
+    sucTitle:"Terima kasih!",
+    sucStepsTitle:"📋 Cara mengirim formulir Anda:",
+    sucStep1:"Konsultasi Anda telah <strong>disalin ke clipboard</strong> ✅",
+    sucStep2:"Buka <strong>KakaoTalk</strong> dan cari ID: <span style=\"background:#fff;border:1.5px solid #cccccc;border-radius:4px;padding:2px 8px;font-weight:700;color:#111111;font-size:13px;\">bfhani7</span>",
+    sucStep3:"Tambahkan sebagai teman, lalu <strong>tempel dan kirim</strong> pesan yang disalin",
+    copyAgainBtn:"📋 Salin lagi", copiedFeedback:"✅ Tersalin!",
+    sucCopyNote:"Ketuk tombol jika Anda perlu menyalin formulir lagi.",
+    errRequired:"Bidang ini wajib diisi.",
+    errContact:"Harap berikan setidaknya satu metode kontak.",
+    agePH:"Usia", heightPH:"cm", weightPH:"kg", goalPH:"kg",
+  },
+  ja: {
+    hdrSub:"以下から言語を選択してください",
+    s1:"個人情報", s2:"連絡先情報", s3:"体型情報",
+    s4:"カフェインの習慣", s5:"ダイエット歴", s6:"医療情報",
+    s7:"ご注文内容", s8:"その他備考", s9:"個人情報への同意",
+    lName:"お名前", lDob:"生年月日", lGender:"性別",
+    gFemale:"女性", gMale:"男性",
+    lPreg:"現在、妊娠中または授乳中ですか？",
+    pregYes:"はい", pregNo:"いいえ",
+    lPhone:"電話番号", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
+    contactNote:"※ いずれか1つ以上の連絡先をご記入ください。",
+    lHeight:"身長（cm）", lWeight:"現在の体重（kg）", lGoal:"目標体重（kg）",
+    lCoffee:"1日に飲むコーヒーの杯数",
+    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4杯以上",
+    lCafSens:"カフェイン感受性",
+    lCafNote:"コーヒーや緑茶を飲んで動悸や不眠が起きることはありますか？",
+    cafYes:"はい", cafNo:"いいえ", cafSome:"時々",
+    lDietExp:"ダイエットのご経験",
+    dNone:"なし", dDiet:"食事・運動のみ", dWest:"西洋薬",
+    dHerb:"漢方薬", dBoth:"両方",
+    lAppetite:"ダイエット薬を服用したとき",
+    lAppCtrl:"食欲抑制効果は？", appGood:"良好", appMod:"普通", appPoor:"あまりなし",
+    lSideEff:"副作用は？", sideEffPH:"例：口の渇き、不眠など",
+    lMeds:"現在服用中の薬または持病",
+    medsPH:"なし / 病状または薬を記入",
+    priceTitle:"✦ スリム丸の価格",
+    p1:"1か月 — ₩150,000", p3:"3か月以上 — ₩130,000 / 月",
+    pShip:"海外送料：別途",
+    lMonths:"何か月分ご注文されますか？",
+    m1:"1か月", m3:"3か月", m6:"6か月", m12:"12か月", mOther:"その他",
+    lMonthsOther:"ご希望の月数をご記入ください",
+    lDelivery:"配送方法",
+    dShip:"配送", dPick:"来院受取",
+    lAddr:"配送先住所", addrPH:"国名を含む完全な住所",
+    lNotes:"追加でお伝えしたいこと", notesPH:"任意…",
+    consentText:"LINEクリニックは、このフォームに記載された個人情報（氏名、連絡先、健康情報）をスリム丸の相談・注文処理の目的にのみ使用します。お客様の同意なしに第三者に提供することはありません。",
+    lConsent:"個人情報の収集・利用に同意します。",
+    submitBtn:"KakaoTalkで送信 →",
+    sucTitle:"ありがとうございます！",
+    sucStepsTitle:"📋 フォームの送信方法：",
+    sucStep1:"問診票が<strong>クリップボードにコピーされました</strong> ✅",
+    sucStep2:"<strong>KakaoTalk</strong>を開き、IDを検索：<span style=\"background:#fff;border:1.5px solid #cccccc;border-radius:4px;padding:2px 8px;font-weight:700;color:#111111;font-size:13px;\">bfhani7</span>",
+    sucStep3:"友達追加後、コピーした内容を<strong>貼り付けて送信</strong>してください",
+    copyAgainBtn:"📋 もう一度コピー", copiedFeedback:"✅ コピーしました！",
+    sucCopyNote:"再度コピーが必要な場合はボタンをタップしてください。",
+    errRequired:"必須項目です。",
+    errContact:"少なくとも1つの連絡先を入力してください。",
+    agePH:"年齢", heightPH:"cm", weightPH:"kg", goalPH:"kg",
+  },
+  zh: {
+    hdrSub:"请在下方选择语言",
+    s1:"个人信息", s2:"联系方式", s3:"体型信息",
+    s4:"咖啡因习惯", s5:"减肥经历", s6:"医疗信息",
+    s7:"订单详情", s8:"补充说明", s9:"隐私同意",
+    lName:"姓名", lDob:"出生日期", lGender:"性别",
+    gFemale:"女", gMale:"男",
+    lPreg:"您目前是否怀孕或哺乳中？",
+    pregYes:"是", pregNo:"否",
+    lPhone:"电话号码", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
+    contactNote:"※ 请至少填写一种联系方式。",
+    lHeight:"身高（cm）", lWeight:"当前体重（kg）", lGoal:"目标体重（kg）",
+    lCoffee:"每天喝几杯咖啡",
+    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4杯以上",
+    lCafSens:"咖啡因敏感度",
+    lCafNote:"喝咖啡或绿茶后是否有心悸或失眠症状？",
+    cafYes:"是", cafNo:"否", cafSome:"有时",
+    lDietExp:"既往减肥经历",
+    dNone:"无", dDiet:"仅饮食/运动", dWest:"西药",
+    dHerb:"中草药", dBoth:"两者均有",
+    lAppetite:"服用减肥药时",
+    lAppCtrl:"食欲抑制效果？", appGood:"良好", appMod:"一般", appPoor:"较差",
+    lSideEff:"副作用？", sideEffPH:"例如：口干、失眠…",
+    lMeds:"目前正在服用的药物或疾病",
+    medsPH:"无 / 列出病情或药物",
+    priceTitle:"✦ 苗条丸价格",
+    p1:"1个月 — ₩150,000", p3:"3个月以上 — ₩130,000 / 月",
+    pShip:"国际运费：另计",
+    lMonths:"您想购买几个月？",
+    m1:"1个月", m3:"3个月", m6:"6个月", m12:"12个月", mOther:"其他",
+    lMonthsOther:"请注明（月数）",
+    lDelivery:"配送方式",
+    dShip:"快递配送", dPick:"到诊所自取",
+    lAddr:"收货地址", addrPH:"含国家的完整地址",
+    lNotes:"其他想补充的内容", notesPH:"选填…",
+    consentText:"LINE CLINIC仅出于处理苗条丸咨询和订单的目的收集本表格中提供的个人信息（姓名、联系方式、健康信息）。未经您同意，您的数据不会与第三方共享。",
+    lConsent:"我同意收集和使用我的个人信息。",
+    submitBtn:"通过KakaoTalk发送 →",
+    sucTitle:"感谢您！",
+    sucStepsTitle:"📋 如何发送您的表格：",
+    sucStep1:"您的问诊表已<strong>复制到剪贴板</strong> ✅",
+    sucStep2:"打开 <strong>KakaoTalk</strong>，搜索ID：<span style=\"background:#fff;border:1.5px solid #cccccc;border-radius:4px;padding:2px 8px;font-weight:700;color:#111111;font-size:13px;\">bfhani7</span>",
+    sucStep3:"添加好友后，<strong>粘贴并发送</strong>复制的内容",
+    copyAgainBtn:"📋 再次复制", copiedFeedback:"✅ 已复制！",
+    sucCopyNote:"如需重新复制表格，请点击按钮。",
+    errRequired:"此项为必填项。",
+    errContact:"请至少提供一种联系方式。",
+    agePH:"年龄", heightPH:"cm", weightPH:"kg", goalPH:"kg",
+  },
+  th: {
+    hdrSub:"กรุณาเลือกภาษาด้านล่าง",
+    s1:"ข้อมูลส่วนตัว", s2:"ข้อมูลการติดต่อ", s3:"ข้อมูลร่างกาย",
+    s4:"พฤติกรรมการดื่มคาเฟอีน", s5:"ประวัติการลดน้ำหนัก", s6:"ข้อมูลทางการแพทย์",
+    s7:"รายละเอียดการสั่งซื้อ", s8:"หมายเหตุเพิ่มเติม", s9:"ความยินยอมด้านความเป็นส่วนตัว",
+    lName:"ชื่อ-นามสกุล", lDob:"วันเกิด", lGender:"เพศ",
+    gFemale:"หญิง", gMale:"ชาย",
+    lPreg:"คุณกำลังตั้งครรภ์หรือให้นมบุตรอยู่หรือเปล่า?",
+    pregYes:"ใช่", pregNo:"ไม่ใช่",
+    lPhone:"หมายเลขโทรศัพท์", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
+    contactNote:"※ กรุณากรอกช่องทางการติดต่ออย่างน้อยหนึ่งช่อง",
+    lHeight:"ส่วนสูง (ซม.)", lWeight:"น้ำหนักปัจจุบัน (กก.)", lGoal:"น้ำหนักที่ต้องการ (กก.)",
+    lCoffee:"จำนวนแก้วกาแฟต่อวัน",
+    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4 แก้วขึ้นไป",
+    lCafSens:"ความไวต่อคาเฟอีน",
+    lCafNote:"คุณมีอาการใจสั่นหรือนอนไม่หลับหลังดื่มกาแฟ/ชาเขียวหรือไม่?",
+    cafYes:"ใช่", cafNo:"ไม่ใช่", cafSome:"บางครั้ง",
+    lDietExp:"ประสบการณ์การลดน้ำหนักก่อนหน้า",
+    dNone:"ไม่มี", dDiet:"ควบคุมอาหาร/ออกกำลังกายอย่างเดียว", dWest:"ยาแผนปัจจุบัน",
+    dHerb:"ยาสมุนไพร", dBoth:"ทั้งสองอย่าง",
+    lAppetite:"ขณะรับประทานยาลดน้ำหนัก",
+    lAppCtrl:"การควบคุมความอยากอาหาร?", appGood:"ดี", appMod:"ปานกลาง", appPoor:"ไม่ดี",
+    lSideEff:"ผลข้างเคียง?", sideEffPH:"เช่น ปากแห้ง นอนไม่หลับ…",
+    lMeds:"ยาที่กำลังรับประทานหรือโรคประจำตัว",
+    medsPH:"ไม่มี / ระบุอาการหรือยา",
+    priceTitle:"✦ ราคาสลิมฮวาน",
+    p1:"1 เดือน — ₩150,000", p3:"3 เดือนขึ้นไป — ₩130,000 / เดือน",
+    pShip:"ค่าจัดส่งระหว่างประเทศ: แยกต่างหาก",
+    lMonths:"ต้องการสั่งซื้อกี่เดือน?",
+    m1:"1 เดือน", m3:"3 เดือน", m6:"6 เดือน", m12:"12 เดือน", mOther:"อื่นๆ",
+    lMonthsOther:"กรุณาระบุจำนวนเดือน",
+    lDelivery:"วิธีรับสินค้า",
+    dShip:"จัดส่ง", dPick:"รับที่คลินิก",
+    lAddr:"ที่อยู่จัดส่ง", addrPH:"ที่อยู่เต็มรวมประเทศ",
+    lNotes:"ข้อมูลเพิ่มเติมที่ต้องการแจ้ง", notesPH:"ไม่บังคับ…",
+    consentText:"LINE CLINIC รวบรวมข้อมูลส่วนบุคคลในแบบฟอร์มนี้ (ชื่อ การติดต่อ ข้อมูลสุขภาพ) เพื่อวัตถุประสงค์ในการดำเนินการปรึกษาและสั่งซื้อสลิมฮวานเท่านั้น ข้อมูลของคุณจะไม่ถูกแบ่งปันกับบุคคลที่สามโดยไม่ได้รับความยินยอมจากคุณ",
+    lConsent:"ฉันยินยอมให้รวบรวมและใช้ข้อมูลส่วนบุคคลของฉัน",
+    submitBtn:"ส่งผ่าน KakaoTalk →",
+    sucTitle:"ขอบคุณ!",
+    sucStepsTitle:"📋 วิธีส่งแบบฟอร์มของคุณ:",
+    sucStep1:"แบบฟอร์มของคุณถูก<strong>คัดลอกไปยังคลิปบอร์ดแล้ว</strong> ✅",
+    sucStep2:"เปิด <strong>KakaoTalk</strong> แล้วค้นหา ID: <span style=\"background:#fff;border:1.5px solid #cccccc;border-radius:4px;padding:2px 8px;font-weight:700;color:#111111;font-size:13px;\">bfhani7</span>",
+    sucStep3:"เพิ่มเป็นเพื่อนแล้ว<strong>วางและส่ง</strong>ข้อความที่คัดลอก",
+    copyAgainBtn:"📋 คัดลอกอีกครั้ง", copiedFeedback:"✅ คัดลอกแล้ว!",
+    sucCopyNote:"กดปุ่มหากต้องการคัดลอกแบบฟอร์มอีกครั้ง",
+    errRequired:"กรุณากรอกข้อมูลในช่องนี้",
+    errContact:"กรุณาระบุช่องทางการติดต่ออย่างน้อยหนึ่งช่อง",
+    agePH:"อายุ", heightPH:"ซม.", weightPH:"กก.", goalPH:"กก.",
+  },
+  vi: {
+    hdrSub:"Vui lòng chọn ngôn ngữ bên dưới",
+    s1:"Thông tin cá nhân", s2:"Thông tin liên hệ", s3:"Thông tin cơ thể",
+    s4:"Thói quen dùng caffeine", s5:"Lịch sử ăn kiêng", s6:"Thông tin y tế",
+    s7:"Chi tiết đặt hàng", s8:"Ghi chú thêm", s9:"Đồng ý quyền riêng tư",
+    lName:"Họ và tên", lDob:"Ngày sinh", lGender:"Giới tính",
+    gFemale:"Nữ", gMale:"Nam",
+    lPreg:"Bạn có đang mang thai hoặc cho con bú không?",
+    pregYes:"Có", pregNo:"Không",
+    lPhone:"Số điện thoại", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
+    contactNote:"※ Vui lòng điền ít nhất một phương thức liên hệ.",
+    lHeight:"Chiều cao (cm)", lWeight:"Cân nặng hiện tại (kg)", lGoal:"Cân nặng mục tiêu (kg)",
+    lCoffee:"Số tách cà phê mỗi ngày",
+    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4+",
+    lCafSens:"Độ nhạy với caffeine",
+    lCafNote:"Bạn có bị hồi hộp hoặc mất ngủ sau khi uống cà phê / trà xanh không?",
+    cafYes:"Có", cafNo:"Không", cafSome:"Đôi khi",
+    lDietExp:"Kinh nghiệm ăn kiêng trước đây",
+    dNone:"Chưa có", dDiet:"Chỉ ăn kiêng/tập thể dục", dWest:"Thuốc tây",
+    dHerb:"Thuốc đông y", dBoth:"Cả hai",
+    lAppetite:"Khi dùng thuốc giảm cân",
+    lAppCtrl:"Kiểm soát cảm giác thèm ăn?", appGood:"Tốt", appMod:"Bình thường", appPoor:"Kém",
+    lSideEff:"Tác dụng phụ?", sideEffPH:"VD: khô miệng, mất ngủ…",
+    lMeds:"Thuốc đang dùng hoặc bệnh lý hiện tại",
+    medsPH:"Không có / Liệt kê bệnh hoặc thuốc",
+    priceTitle:"✦ Bảng giá Slim-Hwan",
+    p1:"1 tháng — ₩150.000", p3:"Từ 3 tháng — ₩130.000 / tháng",
+    pShip:"Phí vận chuyển quốc tế: tính riêng",
+    lMonths:"Bạn muốn đặt mua bao nhiêu tháng?",
+    m1:"1 tháng", m3:"3 tháng", m6:"6 tháng", m12:"12 tháng", mOther:"Khác",
+    lMonthsOther:"Vui lòng ghi rõ (tháng)",
+    lDelivery:"Hình thức nhận hàng",
+    dShip:"Giao hàng", dPick:"Nhận tại phòng khám",
+    lAddr:"Địa chỉ giao hàng", addrPH:"Địa chỉ đầy đủ bao gồm quốc gia",
+    lNotes:"Thông tin thêm bạn muốn chia sẻ", notesPH:"Không bắt buộc…",
+    consentText:"LINE CLINIC thu thập thông tin cá nhân trong biểu mẫu này (tên, liên hệ, thông tin sức khỏe) chỉ nhằm mục đích xử lý tư vấn và đơn hàng Slim-Hwan của bạn. Dữ liệu của bạn sẽ không được chia sẻ với bên thứ ba khi chưa có sự đồng ý của bạn.",
+    lConsent:"Tôi đồng ý với việc thu thập và sử dụng thông tin cá nhân của mình.",
+    submitBtn:"Gửi qua KakaoTalk →",
+    sucTitle:"Cảm ơn bạn!",
+    sucStepsTitle:"📋 Cách gửi biểu mẫu của bạn:",
+    sucStep1:"Biểu mẫu của bạn đã được <strong>sao chép vào clipboard</strong> ✅",
+    sucStep2:"Mở <strong>KakaoTalk</strong> và tìm kiếm ID: <span style=\"background:#fff;border:1.5px solid #cccccc;border-radius:4px;padding:2px 8px;font-weight:700;color:#111111;font-size:13px;\">bfhani7</span>",
+    sucStep3:"Thêm bạn bè, sau đó <strong>dán và gửi</strong> nội dung đã sao chép",
+    copyAgainBtn:"📋 Sao chép lại", copiedFeedback:"✅ Đã sao chép!",
+    sucCopyNote:"Nhấn nút nếu bạn cần sao chép biểu mẫu lại.",
+    errRequired:"Trường này là bắt buộc.",
+    errContact:"Vui lòng cung cấp ít nhất một phương thức liên hệ.",
+    agePH:"Tuổi", heightPH:"cm", weightPH:"kg", goalPH:"kg",
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['en','id','ja','zh','th','vi'][i] === lang);
+  });
+  applyTranslations(lang);
+}
+
+function applyTranslations(lang) {
+  const t = T[lang];
+  document.getElementById('hdr-sub').textContent = t.hdrSub;
+  document.getElementById('s1-title').textContent = t.s1;
+  document.getElementById('s2-title').textContent = t.s2;
+  document.getElementById('s3-title').textContent = t.s3;
+  document.getElementById('s4-title').textContent = t.s4;
+  document.getElementById('s5-title').textContent = t.s5;
+  document.getElementById('s6-title').textContent = t.s6;
+  document.getElementById('s7-title').textContent = t.s7;
+  document.getElementById('s8-title').textContent = t.s8;
+  document.getElementById('s9-title').textContent = t.s9;
+
+  setText('l-name', t.lName); setText('l-dob', t.lDob); setText('l-gender', t.lGender);
+  setText('g-female', t.gFemale); setText('g-male', t.gMale);
+  setText('l-preg', t.lPreg); setText('preg-yes', t.pregYes); setText('preg-no', t.pregNo);
+  setText('l-phone', t.lPhone); setText('l-kakao', t.lKakao);
+  setText('l-insta', t.lInsta); setText('l-line', t.lLine);
+  setText('contact-note', t.contactNote);
+  setText('l-height', t.lHeight); setText('l-weight', t.lWeight); setText('l-goal', t.lGoal);
+  setText('l-coffee', t.lCoffee);
+  setText('cof0',t.cof0); setText('cof1',t.cof1); setText('cof2',t.cof2);
+  setText('cof3',t.cof3); setText('cof4',t.cof4);
+  setText('l-caf-sens', t.lCafSens); setText('l-caf-note', t.lCafNote);
+  setText('cafsens-yes',t.cafYes); setText('cafsens-no',t.cafNo); setText('cafsens-some',t.cafSome);
+  setText('l-diet-exp', t.lDietExp);
+  setText('dexp-none',t.dNone); setText('dexp-diet',t.dDiet); setText('dexp-west',t.dWest);
+  setText('dexp-herb',t.dHerb); setText('dexp-both',t.dBoth);
+  setText('l-appetite', t.lAppetite); setText('l-app-ctrl', t.lAppCtrl);
+  setText('app-good',t.appGood); setText('app-mod',t.appMod); setText('app-poor',t.appPoor);
+  setText('l-side-eff', t.lSideEff);
+  document.getElementById('f-side-eff').placeholder = t.sideEffPH;
+  setText('l-meds', t.lMeds);
+  document.getElementById('f-meds').placeholder = t.medsPH;
+  setText('price-title', t.priceTitle);
+  setText('p1', t.p1); setText('p3', t.p3); setText('pship', t.pShip);
+  setText('l-months', t.lMonths);
+  setText('m1',t.m1); setText('m3',t.m3); setText('m6',t.m6);
+  setText('m12',t.m12); setText('mOther',t.mOther);
+  setText('l-delivery', t.lDelivery);
+  setText('d-ship',t.dShip); setText('d-pick',t.dPick);
+  setText('l-addr', t.lAddr);
+  document.getElementById('f-addr').placeholder = t.addrPH;
+  setText('l-notes', t.lNotes);
+  document.getElementById('f-notes').placeholder = t.notesPH;
+  document.getElementById('consent-text').textContent = t.consentText;
+  setText('l-consent', t.lConsent + ' ');
+  document.getElementById('submit-btn').textContent = t.submitBtn;
+  setText('suc-title', t.sucTitle);
+  setText('l-months', t.lMonths);
+  if (document.getElementById('l-months-other')) setText('l-months-other', t.lMonthsOther);
+  document.getElementById('f-age').placeholder = t.agePH;
+  document.getElementById('f-height').placeholder = t.heightPH;
+  document.getElementById('f-weight').placeholder = t.weightPH;
+  document.getElementById('f-goal').placeholder = t.goalPH;
+}
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+/* ── DOB → age ── */
+document.getElementById('f-dob').addEventListener('change', function() {
+  const dob = new Date(this.value);
+  if (!isNaN(dob)) {
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+    document.getElementById('f-age').value = age;
+  }
+});
+
+/* ── Gender → pregnancy ── */
+document.querySelectorAll('input[name=gender]').forEach(r => {
+  r.addEventListener('change', function() {
+    const pf = document.getElementById('preg-field');
+    pf.classList.toggle('visible', this.value === 'female');
+  });
+});
+
+/* ── Diet history → medication fields ── */
+document.querySelectorAll('input[name=diet_exp]').forEach(r => {
+  r.addEventListener('change', function() {
+    const show = ['western_med','herbal','both'].includes(this.value);
+    document.getElementById('med-exp-field').classList.toggle('visible', show);
+  });
+});
+
+/* ── Delivery → address ── */
+document.querySelectorAll('input[name=delivery]').forEach(r => {
+  r.addEventListener('change', function() {
+    document.getElementById('addr-field').classList.toggle('visible', this.value === 'ship');
+  });
+});
+
+/* ── Months → other input ── */
+document.querySelectorAll('input[name=months]').forEach(r => {
+  r.addEventListener('change', function() {
+    document.getElementById('months-other-field').classList.toggle('visible', this.value === 'other');
+  });
+});
+
+/* ══════════════════════════════════════
+   VALIDATION & SUBMIT
+══════════════════════════════════════ */
+document.getElementById('mainForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (!validateForm()) {
+    // Scroll to first error
+    const firstErr = document.querySelector('.error, [style*="2px solid var(--error)"]');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  sendToKakao();
+});
+
+function validateForm() {
+  let valid = true;
+  const t = T[currentLang];
+
+  const required = [
+    { id: 'f-name', type: 'text' },
+    { id: 'f-dob', type: 'text' },
+    { id: 'f-age', type: 'text' },
+    { id: 'f-height', type: 'text' },
+    { id: 'f-weight', type: 'text' },
+    { id: 'f-goal', type: 'text' },
+    { id: 'f-meds', type: 'text' },
+  ];
+
+  required.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (!el.value.trim()) {
+      el.classList.add('error');
+      valid = false;
+    } else {
+      el.classList.remove('error');
+    }
+  });
+
+  // radio groups
+  const radioReq = ['gender','coffee','caffeine_sens','diet_exp','months','delivery'];
+  radioReq.forEach(name => {
+    const checked = document.querySelector(`input[name=${name}]:checked`);
+    const group = document.querySelector(`input[name=${name}]`).closest('.radio-group');
+    if (!checked) {
+      group.style.outline = '2px solid var(--error)';
+      group.style.borderRadius = '8px';
+      group.style.outlineOffset = '4px';
+      valid = false;
+    } else {
+      group.style.outline = '';
+    }
+  });
+
+  // pregnancy (female)
+  const gender = document.querySelector('input[name=gender]:checked');
+  if (gender && gender.value === 'female') {
+    const pregChk = document.querySelector('input[name=pregnant]:checked');
+    if (!pregChk) {
+      const pg = document.querySelector('#preg-field .radio-group');
+      pg.style.outline = '2px solid var(--error)';
+      pg.style.borderRadius = '8px';
+      pg.style.outlineOffset = '4px';
+      valid = false;
+    } else {
+      const pg = document.querySelector('#preg-field .radio-group');
+      if (pg) pg.style.outline = '';
+    }
+  }
+
+  // med history conditional
+  const dietExp = document.querySelector('input[name=diet_exp]:checked');
+  if (dietExp && ['western_med','herbal','both'].includes(dietExp.value)) {
+    const appCtrl = document.querySelector('input[name=appetite_ctrl]:checked');
+    if (!appCtrl) {
+      const ag = document.querySelector('#med-exp-field .radio-group');
+      ag.style.outline = '2px solid var(--error)';
+      ag.style.borderRadius = '8px';
+      ag.style.outlineOffset = '4px';
+      valid = false;
+    }
+  }
+
+  // delivery address
+  const del = document.querySelector('input[name=delivery]:checked');
+  if (del && del.value === 'ship') {
+    const addr = document.getElementById('f-addr');
+    if (!addr.value.trim()) { addr.classList.add('error'); valid = false; }
+    else addr.classList.remove('error');
+  }
+
+  // months other
+  const monthsSel = document.querySelector('input[name=months]:checked');
+  if (monthsSel && monthsSel.value === 'other') {
+    const mo = document.getElementById('f-months-other');
+    if (!mo.value.trim()) { mo.classList.add('error'); valid = false; }
+    else mo.classList.remove('error');
+  }
+
+  // at least one contact
+  const phone = document.getElementById('f-phone').value.trim();
+  const kakao = document.getElementById('f-kakao').value.trim();
+  const insta = document.getElementById('f-insta').value.trim();
+  const line  = document.getElementById('f-line').value.trim();
+  if (!phone && !kakao && !insta && !line) {
+    ['f-phone','f-kakao','f-insta','f-line'].forEach(id => document.getElementById(id).classList.add('error'));
+    valid = false;
+  } else {
+    ['f-phone','f-kakao','f-insta','f-line'].forEach(id => document.getElementById(id).classList.remove('error'));
+  }
+
+  // consent
+  const cons = document.getElementById('f-consent');
+  if (!cons.checked) {
+    cons.closest('.section').style.outline = '2px solid var(--error)';
+    cons.closest('.section').style.borderRadius = '14px';
+    cons.closest('.section').style.outlineOffset = '2px';
+    valid = false;
+  } else {
+    cons.closest('.section').style.outline = '';
+  }
+
+  return valid;
+}
+
+function buildMessage() {
+  const t = T[currentLang];
+  const v = id => document.getElementById(id)?.value?.trim() || '-';
+  const r = name => document.querySelector(`input[name=${name}]:checked`)?.value || '-';
+
+  const gender = r('gender');
+  const genderLabel = gender === 'female' ? t.gFemale : (gender === 'male' ? t.gMale : '-');
+  const dietExp = r('diet_exp');
+  const delivery = r('delivery');
+  const months = r('months');
+
+  const labels = {
+    none: t.dNone, diet_only: t.dDiet, western_med: t.dWest, herbal: t.dHerb, both: t.dBoth
+  };
+  const appLabels = { good: t.appGood, moderate: t.appMod, poor: t.appPoor };
+  const cafSensLabels = { yes: t.cafYes, no: t.cafNo, sometimes: t.cafSome };
+  const monthLabels = { '1': t.m1, '3': t.m3, '6': t.m6, '12': t.m12, other: t.mOther };
+  const delLabels = { ship: t.dShip, pickup: t.dPick };
+  const pregLabels = { yes: t.pregYes, no: t.pregNo };
+
+  let msg = `[LINE CLINIC – Slim-Hwan Consultation]\n\n`;
+  msg += `▶ ${t.lName}: ${v('f-name')}\n`;
+  msg += `▶ ${t.lDob}: ${v('f-dob')}  (${v('f-age')})\n`;
+  msg += `▶ ${t.lGender}: ${genderLabel}\n`;
+
+  if (gender === 'female') {
+    const preg = r('pregnant');
+    msg += `▶ ${t.lPreg}: ${pregLabels[preg] || '-'}\n`;
+  }
+
+  msg += `\n▶ ${t.lPhone}: ${v('f-phone')}\n`;
+  msg += `▶ ${t.lKakao}: ${v('f-kakao')}\n`;
+  msg += `▶ ${t.lInsta}: ${v('f-insta')}\n`;
+  msg += `▶ ${t.lLine}: ${v('f-line')}\n`;
+
+  msg += `\n▶ ${t.lHeight}: ${v('f-height')} cm\n`;
+  msg += `▶ ${t.lWeight}: ${v('f-weight')} kg\n`;
+  msg += `▶ ${t.lGoal}: ${v('f-goal')} kg\n`;
+
+  msg += `\n▶ ${t.lCoffee}: ${r('coffee')}\n`;
+  msg += `▶ ${t.lCafSens}: ${cafSensLabels[r('caffeine_sens')] || '-'}\n`;
+
+  msg += `\n▶ ${t.lDietExp}: ${labels[dietExp] || '-'}\n`;
+  if (['western_med','herbal','both'].includes(dietExp)) {
+    msg += `▶ ${t.lAppCtrl}: ${appLabels[r('appetite_ctrl')] || '-'}\n`;
+    msg += `▶ ${t.lSideEff}: ${v('f-side-eff')}\n`;
+  }
+
+  msg += `\n▶ ${t.lMeds}: ${v('f-meds')}\n`;
+
+  let monthsDisplay = monthLabels[months] || months;
+  if (months === 'other') {
+    const mo = document.getElementById('f-months-other').value.trim();
+    monthsDisplay = mo ? `${mo} months` : t.mOther;
+  }
+  msg += `\n▶ ${t.lMonths}: ${monthsDisplay}\n`;
+  msg += `▶ ${t.lDelivery}: ${delLabels[delivery] || '-'}\n`;
+  if (delivery === 'ship') msg += `▶ ${t.lAddr}: ${v('f-addr')}\n`;
+
+  const notes = v('f-notes');
+  if (notes && notes !== '-') msg += `\n▶ ${t.lNotes}: ${notes}\n`;
+
+  msg += `\n✅ Privacy consent: Agreed\n`;
+
+  return msg;
+}
+
+let copiedMsg = '';
+
+function copyToClipboard(text) {
+  // Always try execCommand first (works on file://, http, https)
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+
+  // If execCommand failed, try modern clipboard API
+  if (!ok && navigator.clipboard) {
+    navigator.clipboard.writeText(text).catch(() => {});
+  }
+}
+
+function sendToKakao() {
+  copiedMsg = buildMessage();
+  copyToClipboard(copiedMsg);
+
+  // Show success screen
+  document.getElementById('form-wrap').style.display = 'none';
+  const suc = document.getElementById('success-screen');
+  suc.classList.add('visible');
+  suc.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Apply translated success texts
+  applySuccessTranslations(currentLang);
+}
+
+function copyAgain() {
+  copyToClipboard(copiedMsg);
+  const btn = document.getElementById('copy-again-btn');
+  const t = T[currentLang];
+  btn.textContent = t.copiedFeedback || '✅ Copied!';
+  setTimeout(() => { btn.textContent = (t.copyAgainBtn || '📋 Copy again'); }, 2000);
+}
+
+function applySuccessTranslations(lang) {
+  const t = T[lang];
+  setText('suc-title', t.sucTitle);
+  setText('suc-steps-title', t.sucStepsTitle);
+  setText('suc-step1', ''); // set innerHTML below
+  setText('suc-step2', '');
+  setText('suc-step3', '');
+  document.getElementById('suc-step1').innerHTML = t.sucStep1;
+  document.getElementById('suc-step2').innerHTML = t.sucStep2;
+  document.getElementById('suc-step3').innerHTML = t.sucStep3;
+  document.getElementById('copy-again-btn').textContent = t.copyAgainBtn;
+  setText('suc-copy-note', t.sucCopyNote);
+}
+
+// Init
+applyTranslations('en');
+</script>
+</body>
+</html>
