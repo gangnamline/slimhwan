@@ -673,7 +673,7 @@
         </div>
       </div>
       <div class="order-info-box">
-        <div class="order-info-row" id="p-paypal">Payment will be processed via PayPal.</div>
+        <div class="order-info-row" id="p-paypal">Payment method can be selected between PayPal and Korean bank transfer. Korean bank transfer does not support overseas remittance (SWIFT).</div>
         <div class="order-info-row" id="pship">International shipping fee: separate</div>
       </div>
     </div>
@@ -702,6 +702,15 @@
     <div class="field conditional" id="months-other-field">
       <label id="l-months-other">Please specify quantity <span class="req">*</span></label>
       <input type="number" id="f-months-other" min="1" max="12" placeholder="1–12">
+    </div>
+
+    <div class="field">
+      <label id="l-payment">Payment method <span class="req">*</span></label>
+      <div class="radio-group delivery-group payment-group">
+        <label><input type="radio" name="payment" value="paypal"><span id="pay-paypal">PayPal</span></label>
+        <label><input type="radio" name="payment" value="korean_bank"><span id="pay-bank">Korean bank transfer</span></label>
+      </div>
+      <p class="note quantity-note-card" id="payment-note">Korean bank transfer is available only for domestic Korean transfers. Overseas remittance (SWIFT) is not available.</p>
     </div>
 
     <div class="field">
@@ -1160,9 +1169,9 @@ const EXTRA = {
     pCherry:'gentle appetite & craving support / $70 per bottle, $65 each for 2+ bottles',
     pSlim:'standard herbal diet option / $110 for 1 month, $100/month for 3+ months',
     pSlimEx:'stronger intensive diet option / $140 for 1 month, $115/month for 3+ months',
-    paypal:'Payment will be processed via PayPal.', ship:'International shipping fee: separate', product:'Which product would you like to order?', quantity:'Quantity', otherQty:'Please specify quantity',
+    paypal:'Payment method can be selected between PayPal and Korean bank transfer. Korean bank transfer does not support overseas remittance (SWIFT).', ship:'International shipping fee: separate', product:'Which product would you like to order?', quantity:'Quantity', otherQty:'Please specify quantity',
     qNote:'For Cherry Jeong, select the number of bottles. For Slim-Hwan/Slim-EX, select the number of months. Quantity limit: up to 12 months within a 6-month period; Cherry Jeong up to 12 bottles.',
-    address:'Detailed Shipping Address', addrPH:'Full address including country, city, postal code, and recipient name', payment:'Payment method', paypalShort:'PayPal', agreed:'Agreed', bottle:'bottle(s)', month:'month(s)'
+    address:'Detailed Shipping Address', addrPH:'Full address including country, city, postal code, and recipient name', payment:'Payment method', paypalShort:'PayPal', bankTransferShort:'Korean bank transfer', paymentNote:'Korean bank transfer is available only for domestic Korean transfers. Overseas remittance (SWIFT) is not available.', agreed:'Agreed', bottle:'bottle(s)', month:'month(s)'
   },
   id: {
     phone:'Nomor Telepon', email:'Email', sns:'SNS ID', contact:'※ Nomor telepon dan email wajib diisi. SNS ID opsional.',
@@ -1170,9 +1179,9 @@ const EXTRA = {
     pCherry:'dukungan ringan untuk nafsu makan dan craving / $70 per botol, $65 per botol untuk 2+ botol',
     pSlim:'pilihan diet herbal standar / $110 untuk 1 bulan, $100/bulan untuk 3+ bulan',
     pSlimEx:'pilihan diet intensif yang lebih kuat / $140 untuk 1 bulan, $115/bulan untuk 3+ bulan',
-    paypal:'Pembayaran akan diproses melalui PayPal.', ship:'Biaya pengiriman internasional: terpisah', product:'Produk mana yang ingin Anda pesan?', quantity:'Jumlah', otherQty:'Mohon tuliskan jumlah',
+    paypal:'Metode pembayaran dapat dipilih antara PayPal dan transfer rekening bank Korea. Transfer bank Korea tidak mendukung pengiriman uang luar negeri (SWIFT).', ship:'Biaya pengiriman internasional: terpisah', product:'Produk mana yang ingin Anda pesan?', quantity:'Jumlah', otherQty:'Mohon tuliskan jumlah',
     qNote:'Untuk Cherry Jeong, pilih jumlah botol. Untuk Slim-Hwan/Slim-EX, pilih jumlah bulan. Batas pembelian: maksimal 12 bulan dalam periode 6 bulan; Cherry Jeong maksimal 12 botol.',
-    address:'Alamat Pengiriman Lengkap', addrPH:'Alamat lengkap termasuk negara, kota, kode pos, dan nama penerima', payment:'Metode pembayaran', paypalShort:'PayPal', agreed:'Setuju', bottle:'botol', month:'bulan'
+    address:'Alamat Pengiriman Lengkap', addrPH:'Alamat lengkap termasuk negara, kota, kode pos, dan nama penerima', payment:'Metode pembayaran', paypalShort:'PayPal', bankTransferShort:'Transfer bank Korea', paymentNote:'Transfer rekening bank Korea hanya tersedia untuk transfer domestik di Korea. Pengiriman uang luar negeri (SWIFT) tidak tersedia.', agreed:'Setuju', bottle:'botol', month:'bulan'
   },
   ja: {
     phone:'携帯電話番号', email:'メールアドレス', sns:'SNS ID', contact:'※ 携帯電話番号とメールアドレスは必須です。SNS IDは任意です。',
@@ -1180,9 +1189,9 @@ const EXTRA = {
     pCherry:'比較的やさしい食欲・間食ケア / 1本 $70、2本以上は1本 $65',
     pSlim:'標準的な漢方ダイエット / 1か月 $110、3か月以上は1か月 $100',
     pSlimEx:'より強めの集中ダイエット / 1か月 $140、3か月以上は1か月 $115',
-    paypal:'お支払いはPayPalでご案内します。', ship:'国際送料：別途', product:'ご希望の商品を選択してください', quantity:'数量', otherQty:'数量を入力してください',
+    paypal:'お支払い方法はPayPalまたは韓国口座振込から選択できます。韓国口座振込は海外送金（SWIFT）には対応していません。', ship:'国際送料：別途', product:'ご希望の商品を選択してください', quantity:'数量', otherQty:'数量を入力してください',
     qNote:'チェリー錠は本数、スリム丸/スリムEXは月数を選択してください。数量制限：6か月間で最大12か月分まで、チェリー錠は最大12本までです。',
-    address:'詳細配送先住所', addrPH:'国、都市、郵便番号、受取人名を含む完全な住所', payment:'支払い方法', paypalShort:'PayPal', agreed:'同意済み', bottle:'本', month:'か月'
+    address:'詳細配送先住所', addrPH:'国、都市、郵便番号、受取人名を含む完全な住所', payment:'支払い方法', paypalShort:'PayPal', bankTransferShort:'韓国口座振込', paymentNote:'韓国口座振込は韓国内送金のみ可能です。海外送金（SWIFT）はご利用いただけません。', agreed:'同意済み', bottle:'本', month:'か月'
   },
   zh: {
     phone:'手机号码', email:'电子邮箱', sns:'SNS ID', contact:'※ 手机号码和电子邮箱为必填，SNS ID为选填。',
@@ -1190,9 +1199,9 @@ const EXTRA = {
     pCherry:'温和食欲与零食欲望管理 / 每瓶 $70，2瓶以上每瓶 $65',
     pSlim:'标准韩方减重选择 / 1个月 $110，3个月以上每月 $100',
     pSlimEx:'更强效的集中减重选择 / 1个月 $140，3个月以上每月 $115',
-    paypal:'付款将通过 PayPal 进行。', ship:'国际运费：另计', product:'请选择想订购的产品', quantity:'数量', otherQty:'请填写数量',
+    paypal:'付款方式可选择 PayPal 或韩国银行账户转账。韩国账户转账不支持海外汇款（SWIFT）。', ship:'国际运费：另计', product:'请选择想订购的产品', quantity:'数量', otherQty:'请填写数量',
     qNote:'Cherry Jeong请选择瓶数；Slim-Hwan/Slim-EX请选择月份。数量限制：6个月内最多12个月份；Cherry Jeong最多12瓶。',
-    address:'详细配送地址', addrPH:'请填写包含国家、城市、邮编和收件人姓名的完整地址', payment:'付款方式', paypalShort:'PayPal', agreed:'已同意', bottle:'瓶', month:'个月'
+    address:'详细配送地址', addrPH:'请填写包含国家、城市、邮编和收件人姓名的完整地址', payment:'付款方式', paypalShort:'PayPal', bankTransferShort:'韩国账户转账', paymentNote:'韩国银行账户转账仅限韩国国内转账，不支持海外汇款（SWIFT）。', agreed:'已同意', bottle:'瓶', month:'个月'
   },
   th: {
     phone:'เบอร์โทรศัพท์มือถือ', email:'อีเมล', sns:'SNS ID', contact:'※ จำเป็นต้องกรอกเบอร์โทรศัพท์และอีเมล ส่วน SNS ID ไม่บังคับ',
@@ -1200,9 +1209,9 @@ const EXTRA = {
     pCherry:'ตัวเลือกที่อ่อนโยนสำหรับช่วยควบคุมความอยากอาหาร / ขวดละ $70, ซื้อ 2 ขวดขึ้นไป ขวดละ $65',
     pSlim:'ตัวเลือกสมุนไพรลดน้ำหนักมาตรฐาน / 1 เดือน $110, 3 เดือนขึ้นไป เดือนละ $100',
     pSlimEx:'ตัวเลือกเข้มข้นกว่า / 1 เดือน $140, 3 เดือนขึ้นไป เดือนละ $115',
-    paypal:'ชำระเงินผ่าน PayPal', ship:'ค่าจัดส่งระหว่างประเทศ: แยกต่างหาก', product:'ต้องการสั่งสินค้าใด?', quantity:'จำนวน', otherQty:'กรุณาระบุจำนวน',
+    paypal:'สามารถเลือกวิธีชำระเงินเป็น PayPal หรือโอนเข้าบัญชีธนาคารเกาหลีได้ การโอนเข้าบัญชีเกาหลีไม่รองรับการโอนเงินระหว่างประเทศ (SWIFT)', ship:'ค่าจัดส่งระหว่างประเทศ: แยกต่างหาก', product:'ต้องการสั่งสินค้าใด?', quantity:'จำนวน', otherQty:'กรุณาระบุจำนวน',
     qNote:'Cherry Jeong ให้เลือกจำนวนขวด ส่วน Slim-Hwan/Slim-EX ให้เลือกจำนวนเดือน จำกัดจำนวน: สูงสุด 12 เดือนภายในระยะเวลา 6 เดือน; Cherry Jeong สูงสุด 12 ขวด',
-    address:'ที่อยู่จัดส่งโดยละเอียด', addrPH:'ที่อยู่เต็ม รวมประเทศ เมือง รหัสไปรษณีย์ และชื่อผู้รับ', payment:'วิธีชำระเงิน', paypalShort:'PayPal', agreed:'ยินยอมแล้ว', bottle:'ขวด', month:'เดือน'
+    address:'ที่อยู่จัดส่งโดยละเอียด', addrPH:'ที่อยู่เต็ม รวมประเทศ เมือง รหัสไปรษณีย์ และชื่อผู้รับ', payment:'วิธีชำระเงิน', paypalShort:'PayPal', bankTransferShort:'โอนเข้าบัญชีธนาคารเกาหลี', paymentNote:'การโอนเข้าบัญชีธนาคารเกาหลีรองรับเฉพาะการโอนภายในประเทศเกาหลีเท่านั้น ไม่สามารถโอนเงินระหว่างประเทศ (SWIFT) ได้', agreed:'ยินยอมแล้ว', bottle:'ขวด', month:'เดือน'
   },
   vi: {
     phone:'Số điện thoại', email:'Email', sns:'SNS ID', contact:'※ Số điện thoại và email là bắt buộc. SNS ID là tùy chọn.',
@@ -1210,20 +1219,20 @@ const EXTRA = {
     pCherry:'hỗ trợ nhẹ nhàng kiểm soát thèm ăn / $70 mỗi lọ, $65 mỗi lọ khi mua từ 2 lọ',
     pSlim:'lựa chọn giảm cân thảo dược tiêu chuẩn / 1 tháng $110, từ 3 tháng $100/tháng',
     pSlimEx:'lựa chọn giảm cân chuyên sâu mạnh hơn / 1 tháng $140, từ 3 tháng $115/tháng',
-    paypal:'Thanh toán sẽ được xử lý qua PayPal.', ship:'Phí vận chuyển quốc tế: tính riêng', product:'Bạn muốn đặt sản phẩm nào?', quantity:'Số lượng', otherQty:'Vui lòng nhập số lượng',
+    paypal:'Có thể chọn phương thức thanh toán qua PayPal hoặc chuyển khoản ngân hàng Hàn Quốc. Chuyển khoản ngân hàng Hàn Quốc không hỗ trợ chuyển tiền quốc tế (SWIFT).', ship:'Phí vận chuyển quốc tế: tính riêng', product:'Bạn muốn đặt sản phẩm nào?', quantity:'Số lượng', otherQty:'Vui lòng nhập số lượng',
     qNote:'Với Cherry Jeong, chọn số lọ. Với Slim-Hwan/Slim-EX, chọn số tháng. Giới hạn: tối đa 12 tháng trong vòng 6 tháng; Cherry Jeong tối đa 12 lọ.',
-    address:'Địa chỉ giao hàng chi tiết', addrPH:'Địa chỉ đầy đủ gồm quốc gia, thành phố, mã bưu chính và tên người nhận', payment:'Phương thức thanh toán', paypalShort:'PayPal', agreed:'Đã đồng ý', bottle:'lọ', month:'tháng'
+    address:'Địa chỉ giao hàng chi tiết', addrPH:'Địa chỉ đầy đủ gồm quốc gia, thành phố, mã bưu chính và tên người nhận', payment:'Phương thức thanh toán', paypalShort:'PayPal', bankTransferShort:'Chuyển khoản ngân hàng Hàn Quốc', paymentNote:'Chuyển khoản ngân hàng Hàn Quốc chỉ áp dụng cho chuyển khoản nội địa tại Hàn Quốc. Không hỗ trợ chuyển tiền quốc tế (SWIFT).', agreed:'Đã đồng ý', bottle:'lọ', month:'tháng'
   }
 };
 
 
 const CONSENT_EXTRA = {
-  en: 'LINE CLINIC collects the personal information provided in this form (name, contact, health information, order details, and shipping information) solely for the purpose of processing your diet consultation, order, and PayPal payment guidance. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.',
-  id: 'LINE CLINIC mengumpulkan informasi pribadi yang diberikan dalam formulir ini (nama, kontak, informasi kesehatan, detail pesanan, dan informasi pengiriman) hanya untuk konsultasi diet, pesanan, dan panduan pembayaran PayPal. Data Anda tidak akan dibagikan kepada pihak ketiga tanpa persetujuan dan akan disimpan dengan aman sesuai hukum privasi yang berlaku.',
-  ja: 'LINE CLINICは、本フォームに記入された個人情報（氏名、連絡先、健康情報、注文内容、配送情報）を、ダイエット相談、注文、PayPal決済案内の目的でのみ収集します。ご本人の同意なく第三者に共有せず、適用される個人情報保護法に従って安全に保管します。',
-  zh: 'LINE CLINIC 仅为处理减重咨询、订单及 PayPal 付款指引而收集本表中填写的个人信息（姓名、联系方式、健康信息、订单详情和配送信息）。未经同意不会向第三方共享，并将依据相关隐私法律安全保存。',
-  th: 'LINE CLINIC จะเก็บข้อมูลส่วนบุคคลที่กรอกในแบบฟอร์มนี้ (ชื่อ ข้อมูลติดต่อ ข้อมูลสุขภาพ รายละเอียดการสั่งซื้อ และข้อมูลจัดส่ง) เพื่อใช้สำหรับการปรึกษาลดน้ำหนัก การสั่งซื้อ และคำแนะนำการชำระเงินผ่าน PayPal เท่านั้น และจะไม่เปิดเผยแก่บุคคลที่สามโดยไม่ได้รับความยินยอม',
-  vi: 'LINE CLINIC thu thập thông tin cá nhân được cung cấp trong biểu mẫu này (tên, liên hệ, thông tin sức khỏe, chi tiết đơn hàng và thông tin giao hàng) chỉ nhằm mục đích tư vấn giảm cân, xử lý đơn hàng và hướng dẫn thanh toán qua PayPal. Dữ liệu của bạn sẽ không được chia sẻ với bên thứ ba nếu không có sự đồng ý.'
+  en: 'LINE CLINIC collects the personal information provided in this form (name, contact, health information, order details, and shipping information) solely for the purpose of processing your diet consultation, order, and payment guidance. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.',
+  id: 'LINE CLINIC mengumpulkan informasi pribadi yang diberikan dalam formulir ini (nama, kontak, informasi kesehatan, detail pesanan, dan informasi pengiriman) hanya untuk konsultasi diet, pesanan, dan panduan pembayaran. Data Anda tidak akan dibagikan kepada pihak ketiga tanpa persetujuan dan akan disimpan dengan aman sesuai hukum privasi yang berlaku.',
+  ja: 'LINE CLINICは、本フォームに記入された個人情報（氏名、連絡先、健康情報、注文内容、配送情報）を、ダイエット相談、注文、決済案内の目的でのみ収集します。ご本人の同意なく第三者に共有せず、適用される個人情報保護法に従って安全に保管します。',
+  zh: 'LINE CLINIC 仅为处理减重咨询、订单及付款指引而收集本表中填写的个人信息（姓名、联系方式、健康信息、订单详情和配送信息）。未经同意不会向第三方共享，并将依据相关隐私法律安全保存。',
+  th: 'LINE CLINIC จะเก็บข้อมูลส่วนบุคคลที่กรอกในแบบฟอร์มนี้ (ชื่อ ข้อมูลติดต่อ ข้อมูลสุขภาพ รายละเอียดการสั่งซื้อ และข้อมูลจัดส่ง) เพื่อใช้สำหรับการปรึกษาลดน้ำหนัก การสั่งซื้อ และคำแนะนำการชำระเงิน เท่านั้น และจะไม่เปิดเผยแก่บุคคลที่สามโดยไม่ได้รับความยินยอม',
+  vi: 'LINE CLINIC thu thập thông tin cá nhân được cung cấp trong biểu mẫu này (tên, liên hệ, thông tin sức khỏe, chi tiết đơn hàng và thông tin giao hàng) chỉ nhằm mục đích tư vấn giảm cân, xử lý đơn hàng và hướng dẫn thanh toán. Dữ liệu của bạn sẽ không được chia sẻ với bên thứ ba nếu không có sự đồng ý.'
 };
 
 function setExtraLabel(id, val, required=false) {
@@ -1243,6 +1252,10 @@ function applyExtraTranslations(lang) {
   if (document.getElementById('p-slimex')) document.getElementById('p-slimex').innerHTML = `<span class="price-highlight">${x.slimex}</span> — ${x.pSlimEx}`;
   setText('p-paypal', x.paypal);
   setText('pship', x.ship);
+  setExtraLabel('l-payment', x.payment, true);
+  setText('pay-paypal', x.paypalShort || 'PayPal');
+  setText('pay-bank', x.bankTransferShort || 'Korean bank transfer');
+  setText('payment-note', x.paymentNote || 'Korean bank transfer is available only for domestic Korean transfers. Overseas remittance (SWIFT) is not available.');
   setExtraLabel('l-product', x.product, true);
   setText('prod-cherry', x.cherry);
   setText('prod-slim', x.slim);
@@ -1311,7 +1324,7 @@ document.querySelectorAll('input[name=months]').forEach(r => {
   });
 });
 
-document.querySelectorAll('input[name=product]').forEach(r => {
+document.querySelectorAll('input[name=product], input[name=payment]').forEach(r => {
   r.addEventListener('change', function() {
     const group = this.closest('.radio-group');
     if (group) group.style.outline = '';
@@ -1365,7 +1378,7 @@ function validateForm() {
   });
   if (!req('f-email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))) valid = false;
 
-  ['gender','coffee','caffeine_sens','diet_exp','product','months','delivery'].forEach(name => {
+  ['gender','coffee','caffeine_sens','diet_exp','product','months','payment','delivery'].forEach(name => {
     if (!reqGroup(name)) valid = false;
   });
 
@@ -1414,12 +1427,14 @@ function buildMessage() {
   const dietExp = r('diet_exp');
   const delivery = r('delivery');
   const product = r('product');
+  const payment = r('payment');
   const months = r('months');
 
   const labels = { none: t.dNone, diet_only: t.dDiet, western_med: t.dWest, herbal: t.dHerb, both: t.dBoth };
   const appLabels = { good: t.appGood, moderate: t.appMod, poor: t.appPoor };
   const cafSensLabels = { yes: t.cafYes, no: t.cafNo, sometimes: t.cafSome };
   const productLabels = { cherry: x.cherry, slimhwan: x.slim, slimex: x.slimex };
+  const paymentLabels = { paypal: x.paypalShort, korean_bank: x.bankTransferShort || 'Korean bank transfer' };
   const delLabels = { ship: t.dShip, pickup: t.dPick };
   const pregLabels = { yes: t.pregYes, no: t.pregNo };
 
