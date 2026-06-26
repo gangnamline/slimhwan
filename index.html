@@ -771,6 +771,11 @@
 
   <button onclick="copyAgain()" style="width:100%;padding:13px;background:#111111;color:#fff;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-family:'Pretendard',sans-serif;border:none;border-radius:8px;cursor:pointer;margin-bottom:10px;" id="copy-again-btn">📋 Copy form again</button>
   <p style="font-size:11px;color:var(--light);" id="suc-copy-note">If nothing appears when you paste, tap “Copy form again” and paste into the chat once more.</p>
+
+  <div style="background:#ffffff;border:1px solid #e0e0e0;border-radius:10px;padding:16px 18px;margin-top:18px;text-align:center;">
+    <p style="font-size:11px;font-weight:600;color:#999999;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;" id="suc-whatsapp-label">Need help? Contact us on WhatsApp</p>
+    <a href="https://wa.me/821072676003" target="_blank" rel="noopener" style="display:block;font-size:14px;font-weight:600;color:#111111;text-decoration:none;line-height:1.5;" id="suc-whatsapp-link">WhatsApp: +82 10-7267-6003</a>
+  </div>
 </div>
 
 <script>
@@ -1472,7 +1477,7 @@ function buildMessage() {
   const unit = product === 'cherry' ? x.bottle : x.month;
   msg += `\n▶ ${x.product}: ${productLabels[product] || '-'}\n`;
   msg += `▶ ${x.quantity}: ${quantityDisplay}${quantityDisplay !== '-' ? ' ' + unit : ''}\n`;
-  msg += `▶ ${x.payment}: ${x.paypalShort}\n`;
+  msg += `▶ ${x.payment}: ${paymentLabels[payment] || '-'}\n`;
   msg += `▶ ${t.lDelivery}: ${delLabels[delivery] || '-'}\n`;
   if (delivery === 'ship') msg += `▶ ${x.address}: ${v('f-addr')}\n`;
 
@@ -1539,7 +1544,8 @@ const SUCCESS_TEXT = {
     step2: 'Go back to the chat room where you received this form link.',
     step3: 'Tap the message box, <strong>paste</strong> the copied form, then tap <strong>Send</strong>.',
     copyAgainBtn: '📋 Copy form again', copiedFeedback: '✅ Copied!',
-    copyNote: 'If nothing appears when you paste, tap Copy form again and paste into the chat once more.'
+    copyNote: 'If nothing appears when you paste, tap Copy form again and paste into the chat once more.',
+    whatsappLabel: 'Need help? Contact us on WhatsApp'
   },
   id: {
     title: 'Satu langkah lagi!',
@@ -1549,7 +1555,8 @@ const SUCCESS_TEXT = {
     step2: 'Kembali ke ruang chat tempat Anda menerima tautan formulir ini.',
     step3: 'Ketuk kotak pesan, <strong>tempel</strong> formulir yang disalin, lalu tekan <strong>Kirim</strong>.',
     copyAgainBtn: '📋 Salin formulir lagi', copiedFeedback: '✅ Tersalin!',
-    copyNote: 'Jika tidak muncul saat ditempel, ketuk Salin formulir lagi lalu tempelkan ke chat.'
+    copyNote: 'Jika tidak muncul saat ditempel, ketuk Salin formulir lagi lalu tempelkan ke chat.',
+    whatsappLabel: 'Butuh bantuan? Hubungi kami melalui WhatsApp'
   },
   ja: {
     title: 'あと1ステップです！',
@@ -1559,7 +1566,8 @@ const SUCCESS_TEXT = {
     step2: 'このフォームリンクを受け取ったチャット画面に戻ってください。',
     step3: 'メッセージ欄をタップし、コピー内容を<strong>貼り付け</strong>て<strong>送信</strong>してください。',
     copyAgainBtn: '📋 フォームを再コピー', copiedFeedback: '✅ コピー完了！',
-    copyNote: '貼り付けできない場合は、再コピーしてもう一度チャットに貼り付けてください。'
+    copyNote: '貼り付けできない場合は、再コピーしてもう一度チャットに貼り付けてください。',
+    whatsappLabel: 'お困りの場合はWhatsAppでご連絡ください'
   },
   zh: {
     title: '还差一步！',
@@ -1569,7 +1577,8 @@ const SUCCESS_TEXT = {
     step2: '返回收到此表格链接的聊天窗口。',
     step3: '点击消息框，<strong>粘贴</strong>复制内容，然后点击<strong>发送</strong>。',
     copyAgainBtn: '📋 重新复制表格', copiedFeedback: '✅ 已复制！',
-    copyNote: '如果粘贴时没有内容，请点击重新复制后再次粘贴到聊天。'
+    copyNote: '如果粘贴时没有内容，请点击重新复制后再次粘贴到聊天。',
+    whatsappLabel: '需要帮助？请通过 WhatsApp 联系我们'
   },
   th: {
     title: 'เหลืออีกหนึ่งขั้นตอน!',
@@ -1579,7 +1588,8 @@ const SUCCESS_TEXT = {
     step2: 'กลับไปยังห้องแชทที่ได้รับลิงก์แบบฟอร์มนี้',
     step3: 'แตะช่องข้อความ <strong>วาง</strong> แบบฟอร์มที่คัดลอก แล้วแตะ <strong>ส่ง</strong>',
     copyAgainBtn: '📋 คัดลอกแบบฟอร์มอีกครั้ง', copiedFeedback: '✅ คัดลอกแล้ว!',
-    copyNote: 'หากวางแล้วไม่ปรากฏข้อความ ให้กดคัดลอกอีกครั้งแล้ววางในแชทอีกครั้ง'
+    copyNote: 'หากวางแล้วไม่ปรากฏข้อความ ให้กดคัดลอกอีกครั้งแล้ววางในแชทอีกครั้ง',
+    whatsappLabel: 'ต้องการความช่วยเหลือ? ติดต่อเราทาง WhatsApp'
   },
   vi: {
     title: 'Còn một bước nữa!',
@@ -1589,7 +1599,8 @@ const SUCCESS_TEXT = {
     step2: 'Quay lại phòng chat nơi bạn nhận được link biểu mẫu này.',
     step3: 'Nhấn vào ô tin nhắn, <strong>dán</strong> biểu mẫu đã sao chép, rồi nhấn <strong>Gửi</strong>.',
     copyAgainBtn: '📋 Sao chép lại biểu mẫu', copiedFeedback: '✅ Đã sao chép!',
-    copyNote: 'Nếu không thấy nội dung khi dán, hãy nhấn Sao chép lại biểu mẫu rồi dán vào chat một lần nữa.'
+    copyNote: 'Nếu không thấy nội dung khi dán, hãy nhấn Sao chép lại biểu mẫu rồi dán vào chat một lần nữa.',
+    whatsappLabel: 'Cần hỗ trợ? Liên hệ với chúng tôi qua WhatsApp'
   }
 };
 
@@ -1603,6 +1614,7 @@ function applySuccessTranslations(lang) {
   document.getElementById('suc-step3').innerHTML = s.step3;
   document.getElementById('copy-again-btn').textContent = s.copyAgainBtn;
   setText('suc-copy-note', s.copyNote);
+  setText('suc-whatsapp-label', s.whatsappLabel || SUCCESS_TEXT.en.whatsappLabel);
 }
 
 // Init
