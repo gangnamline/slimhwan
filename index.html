@@ -497,11 +497,8 @@
 <!-- LANGUAGE BAR -->
 <div class="lang-bar">
   <button class="lang-btn active" onclick="setLang('en')">🇬🇧 English</button>
-  <button class="lang-btn" onclick="setLang('id')">🇮🇩 Indonesia</button>
   <button class="lang-btn" onclick="setLang('ja')">🇯🇵 日本語</button>
   <button class="lang-btn" onclick="setLang('zh')">🇨🇳 中文</button>
-  <button class="lang-btn" onclick="setLang('th')">🇹🇭 ภาษาไทย</button>
-  <button class="lang-btn" onclick="setLang('vi')">🇻🇳 Tiếng Việt</button>
 </div>
 
 <!-- MAIN FORM -->
@@ -673,7 +670,9 @@
         </div>
       </div>
       <div class="order-info-box">
-        <div class="order-info-row" id="p-paypal">Payment method can be selected between PayPal and Korean bank transfer. Korean bank transfer does not support overseas remittance (SWIFT).</div>
+        <div class="order-info-row" id="p-paypal">Payment is available only in USD via PayPal.</div>
+        <div class="order-info-row" id="p-idverify">For identity verification, please send a photo of your passport through the chat after submitting this form.</div>
+        <div class="order-info-row" id="p-selfonly">To prevent resale, payment, delivery, and pickup are available only by the patient themselves.</div>
         <div class="order-info-row" id="pship">International shipping fee: separate</div>
       </div>
     </div>
@@ -694,23 +693,21 @@
         <label><input type="radio" name="months" value="2"><span id="m2">2</span></label>
         <label><input type="radio" name="months" value="3"><span id="m3">3</span></label>
         <label><input type="radio" name="months" value="6"><span id="m6">6</span></label>
-        <label><input type="radio" name="months" value="12"><span id="m12">12</span></label>
         <label><input type="radio" name="months" value="other"><span id="mOther">Other</span></label>
       </div>
-      <p class="note quantity-note-card" id="quantity-note">For Cherry Jeong, select the number of bottles. For Slim-Hwan/Slim-EX, select the number of months. Quantity limit: up to 12 months within a 6-month period; Cherry Jeong up to 12 bottles.</p>
+      <p class="note quantity-note-card" id="quantity-note">For Cherry Jeong, select the number of bottles. For Slim-Hwan/Slim-EX, select the number of months. Purchase limit: up to 6 months' supply within a 3-month period.</p>
     </div>
     <div class="field conditional" id="months-other-field">
       <label id="l-months-other">Please specify quantity <span class="req">*</span></label>
-      <input type="number" id="f-months-other" min="1" max="12" placeholder="1–12">
+      <input type="number" id="f-months-other" min="1" max="6" placeholder="1–6">
     </div>
 
     <div class="field">
       <label id="l-payment">Payment method <span class="req">*</span></label>
       <div class="radio-group delivery-group payment-group">
-        <label><input type="radio" name="payment" value="paypal"><span id="pay-paypal">PayPal</span></label>
-        <label><input type="radio" name="payment" value="korean_bank"><span id="pay-bank">Korean bank transfer</span></label>
+        <label><input type="radio" name="payment" value="paypal" checked><span id="pay-paypal">PayPal (USD only)</span></label>
       </div>
-      <p class="note quantity-note-card" id="payment-note">Korean bank transfer is available only for domestic Korean transfers. Overseas remittance (SWIFT) is not available.</p>
+      <p class="note quantity-note-card" id="payment-note">Payment is available only in USD via PayPal and must be made directly by the patient. Payment by another person is not accepted.</p>
     </div>
 
     <div class="field">
@@ -719,11 +716,12 @@
         <label><input type="radio" name="delivery" value="ship"><span id="d-ship">Delivery</span></label>
         <label><input type="radio" name="delivery" value="pickup"><span id="d-pick">In-clinic pickup</span></label>
       </div>
+      <p class="note quantity-note-card" id="delivery-note">Delivery or in-clinic pickup is available only by the patient themselves. Proxy pickup or receiving on behalf of another person is not available.</p>
     </div>
 
     <div class="field conditional" id="addr-field">
       <label id="l-addr">Detailed Shipping Address <span class="req">*</span></label>
-      <textarea id="f-addr" rows="3" placeholder="Full address including country, city, postal code, and recipient name"></textarea>
+      <textarea id="f-addr" rows="3" placeholder="Full address including country, city, and postal code. The recipient must be the patient."></textarea>
     </div>
   </div>
 
@@ -740,12 +738,25 @@
   <div class="section">
     <div class="section-title"><span class="section-num">9</span><span id="s9-title">Privacy Consent</span></div>
     <div class="consent-box" id="consent-text">
-      LINE CLINIC collects the personal information provided in this form (name, contact, health information) solely for the purpose of processing your Slim-Hwan consultation and order. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.
+      LINE CLINIC collects the personal information provided in this form and chat (name, contact, health information, order details, shipping information, and passport photo for identity verification) solely for the purpose of processing your diet consultation, order, identity verification, and payment guidance. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.
     </div>
     <label class="consent-check">
       <input type="checkbox" id="f-consent">
       <div class="custom-cb"></div>
       <span id="l-consent">I agree to the collection and use of my personal information. <span class="req">*</span></span>
+    </label>
+  </div>
+
+  <!-- §10 Personal-use / No-resale Agreement -->
+  <div class="section" id="policy-section">
+    <div class="section-title"><span class="section-num">10</span><span id="s10-title">Personal-use / No-resale Agreement</span></div>
+    <div class="consent-box" id="policy-agreement-text">
+      Slim-Hwan is a prescribed Korean herbal medicine that can be provided only after consultation with the doctor for personal use. If circumstances suggesting resale, reselling, proxy purchase, bulk purchase for others, or distribution are found, future purchases may be refused.
+    </div>
+    <label class="consent-check">
+      <input type="checkbox" id="f-policy-consent">
+      <div class="custom-cb"></div>
+      <span id="l-policy-consent">I understand and agree that Slim-Hwan is for my personal use only, and that future purchases may be refused if resale/reselling is suspected. <span class="req">*</span></span>
     </label>
   </div>
 
@@ -812,7 +823,7 @@ const T = {
     p1:"1 month — ₩150,000", p3:"3+ months — ₩130,000 / month",
     pShip:"International shipping fee: separate",
     lMonths:"How many months would you like to order?",
-    m1:"1 month", m3:"3 months", m6:"6 months", m12:"12 months", mOther:"Other",
+    m1:"1 month", m3:"3 months", m6:"6 months", mOther:"Other",
     lMonthsOther:"Please specify (months)",
     lDelivery:"Delivery preference",
     dShip:"Delivery", dPick:"In-clinic pickup",
@@ -832,58 +843,7 @@ const T = {
     errRequired:"This field is required.",
     errContact:"Please provide at least one contact method.",
     agePH:"Age", heightPH:"cm", weightPH:"kg", goalPH:"kg",
-  },
-  id: {
-    hdrSub:"Silakan pilih bahasa Anda di bawah",
-    s1:"Informasi Pribadi", s2:"Informasi Kontak", s3:"Informasi Tubuh",
-    s4:"Kebiasaan Kafein", s5:"Riwayat Diet", s6:"Informasi Medis",
-    s7:"Detail Pesanan", s8:"Catatan Tambahan", s9:"Persetujuan Privasi",
-    lName:"Nama Lengkap", lDob:"Tanggal Lahir", lGender:"Jenis Kelamin",
-    gFemale:"Perempuan", gMale:"Laki-laki",
-    lPreg:"Apakah Anda sedang hamil atau menyusui?",
-    pregYes:"Ya", pregNo:"Tidak",
-    lPhone:"Nomor Telepon", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
-    contactNote:"※ Harap isi setidaknya satu metode kontak.",
-    lHeight:"Tinggi Badan (cm)", lWeight:"Berat Badan Saat Ini (kg)", lGoal:"Berat Badan Target (kg)",
-    lCoffee:"Berapa cangkir kopi per hari",
-    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4+",
-    lCafSens:"Sensitivitas kafein",
-    lCafNote:"Apakah Anda mengalami jantung berdebar atau insomnia setelah minum kopi / teh hijau?",
-    cafYes:"Ya", cafNo:"Tidak", cafSome:"Kadang-kadang",
-    lDietExp:"Pengalaman diet sebelumnya",
-    dNone:"Tidak ada", dDiet:"Diet/Olahraga saja", dWest:"Obat Barat",
-    dHerb:"Obat herbal", dBoth:"Keduanya",
-    lAppetite:"Saat mengonsumsi obat diet",
-    lAppCtrl:"Kontrol nafsu makan?", appGood:"Baik", appMod:"Sedang", appPoor:"Kurang",
-    lSideEff:"Efek samping?", sideEffPH:"mis. mulut kering, insomnia…",
-    lMeds:"Obat yang sedang dikonsumsi atau kondisi medis",
-    medsPH:"Tidak ada / Sebutkan kondisi atau obat",
-    priceTitle:"✦ Harga Slim-Hwan",
-    p1:"1 bulan — ₩150.000", p3:"3+ bulan — ₩130.000 / bulan",
-    pShip:"Biaya pengiriman internasional: terpisah",
-    lMonths:"Berapa bulan yang ingin Anda pesan?",
-    m1:"1 bulan", m3:"3 bulan", m6:"6 bulan", m12:"12 bulan", mOther:"Lainnya",
-    lMonthsOther:"Mohon tentukan (bulan)",
-    lDelivery:"Preferensi pengiriman",
-    dShip:"Pengiriman", dPick:"Ambil di klinik",
-    lAddr:"Alamat Pengiriman", addrPH:"Alamat lengkap termasuk negara",
-    lNotes:"Informasi tambahan yang ingin Anda sampaikan", notesPH:"Opsional…",
-    consentText:"LINE CLINIC mengumpulkan informasi pribadi yang diberikan dalam formulir ini (nama, kontak, informasi kesehatan) semata-mata untuk keperluan konsultasi dan pemesanan Slim-Hwan Anda. Data Anda tidak akan dibagikan kepada pihak ketiga tanpa persetujuan Anda.",
-    lConsent:"Saya menyetujui pengumpulan dan penggunaan informasi pribadi saya.",
-    submitBtn:"Salin untuk Chat →",
-    sucTitle:"Satu langkah lagi!",
-    sucSubtitle:"Formulir Anda sudah disalin, tetapi belum terkirim ke klinik. Silakan tempel ke chat dan kirim.",
-    sucStepsTitle:"📋 Untuk menyelesaikan konsultasi Anda:",
-    sucStep1:"Formulir yang sudah diisi telah <strong>disalin ke clipboard</strong> ✅",
-    sucStep2:"Kembali ke ruang chat tempat Anda menerima link formulir ini.",
-    sucStep3:"Ketuk kolom pesan, <strong>tempel</strong> formulir yang disalin, lalu tekan <strong>Kirim</strong>.",
-    copyAgainBtn:"📋 Salin formulir lagi", copiedFeedback:"✅ Tersalin!",
-    sucCopyNote:"Jika tidak ada yang muncul saat ditempel, ketuk Salin formulir lagi lalu tempel ke chat sekali lagi.",
-    errRequired:"Bidang ini wajib diisi.",
-    errContact:"Harap berikan setidaknya satu metode kontak.",
-    agePH:"Usia", heightPH:"cm", weightPH:"kg", goalPH:"kg",
-  },
-  ja: {
+  },  ja: {
     hdrSub:"以下から言語を選択してください",
     s1:"個人情報", s2:"連絡先情報", s3:"体型情報",
     s4:"カフェインの習慣", s5:"ダイエット歴", s6:"医療情報",
@@ -912,7 +872,7 @@ const T = {
     p1:"1か月 — ₩150,000", p3:"3か月以上 — ₩130,000 / 月",
     pShip:"海外送料：別途",
     lMonths:"何か月分ご注文されますか？",
-    m1:"1か月", m3:"3か月", m6:"6か月", m12:"12か月", mOther:"その他",
+    m1:"1か月", m3:"3か月", m6:"6か月", mOther:"その他",
     lMonthsOther:"ご希望の月数をご記入ください",
     lDelivery:"配送方法",
     dShip:"配送", dPick:"来院受取",
@@ -962,7 +922,7 @@ const T = {
     p1:"1个月 — ₩150,000", p3:"3个月以上 — ₩130,000 / 月",
     pShip:"国际运费：另计",
     lMonths:"您想购买几个月？",
-    m1:"1个月", m3:"3个月", m6:"6个月", m12:"12个月", mOther:"其他",
+    m1:"1个月", m3:"3个月", m6:"6个月", mOther:"其他",
     lMonthsOther:"请注明（月数）",
     lDelivery:"配送方式",
     dShip:"快递配送", dPick:"到诊所自取",
@@ -982,106 +942,6 @@ const T = {
     errRequired:"此项为必填项。",
     errContact:"请至少提供一种联系方式。",
     agePH:"年龄", heightPH:"cm", weightPH:"kg", goalPH:"kg",
-  },
-  th: {
-    hdrSub:"กรุณาเลือกภาษาด้านล่าง",
-    s1:"ข้อมูลส่วนตัว", s2:"ข้อมูลการติดต่อ", s3:"ข้อมูลร่างกาย",
-    s4:"พฤติกรรมการดื่มคาเฟอีน", s5:"ประวัติการลดน้ำหนัก", s6:"ข้อมูลทางการแพทย์",
-    s7:"รายละเอียดการสั่งซื้อ", s8:"หมายเหตุเพิ่มเติม", s9:"ความยินยอมด้านความเป็นส่วนตัว",
-    lName:"ชื่อ-นามสกุล", lDob:"วันเกิด", lGender:"เพศ",
-    gFemale:"หญิง", gMale:"ชาย",
-    lPreg:"คุณกำลังตั้งครรภ์หรือให้นมบุตรอยู่หรือเปล่า?",
-    pregYes:"ใช่", pregNo:"ไม่ใช่",
-    lPhone:"หมายเลขโทรศัพท์", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
-    contactNote:"※ กรุณากรอกช่องทางการติดต่ออย่างน้อยหนึ่งช่อง",
-    lHeight:"ส่วนสูง (ซม.)", lWeight:"น้ำหนักปัจจุบัน (กก.)", lGoal:"น้ำหนักที่ต้องการ (กก.)",
-    lCoffee:"จำนวนแก้วกาแฟต่อวัน",
-    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4 แก้วขึ้นไป",
-    lCafSens:"ความไวต่อคาเฟอีน",
-    lCafNote:"คุณมีอาการใจสั่นหรือนอนไม่หลับหลังดื่มกาแฟ/ชาเขียวหรือไม่?",
-    cafYes:"ใช่", cafNo:"ไม่ใช่", cafSome:"บางครั้ง",
-    lDietExp:"ประสบการณ์การลดน้ำหนักก่อนหน้า",
-    dNone:"ไม่มี", dDiet:"ควบคุมอาหาร/ออกกำลังกายอย่างเดียว", dWest:"ยาแผนปัจจุบัน",
-    dHerb:"ยาสมุนไพร", dBoth:"ทั้งสองอย่าง",
-    lAppetite:"ขณะรับประทานยาลดน้ำหนัก",
-    lAppCtrl:"การควบคุมความอยากอาหาร?", appGood:"ดี", appMod:"ปานกลาง", appPoor:"ไม่ดี",
-    lSideEff:"ผลข้างเคียง?", sideEffPH:"เช่น ปากแห้ง นอนไม่หลับ…",
-    lMeds:"ยาที่กำลังรับประทานหรือโรคประจำตัว",
-    medsPH:"ไม่มี / ระบุอาการหรือยา",
-    priceTitle:"✦ ราคาสลิมฮวาน",
-    p1:"1 เดือน — ₩150,000", p3:"3 เดือนขึ้นไป — ₩130,000 / เดือน",
-    pShip:"ค่าจัดส่งระหว่างประเทศ: แยกต่างหาก",
-    lMonths:"ต้องการสั่งซื้อกี่เดือน?",
-    m1:"1 เดือน", m3:"3 เดือน", m6:"6 เดือน", m12:"12 เดือน", mOther:"อื่นๆ",
-    lMonthsOther:"กรุณาระบุจำนวนเดือน",
-    lDelivery:"วิธีรับสินค้า",
-    dShip:"จัดส่ง", dPick:"รับที่คลินิก",
-    lAddr:"ที่อยู่จัดส่ง", addrPH:"ที่อยู่เต็มรวมประเทศ",
-    lNotes:"ข้อมูลเพิ่มเติมที่ต้องการแจ้ง", notesPH:"ไม่บังคับ…",
-    consentText:"LINE CLINIC รวบรวมข้อมูลส่วนบุคคลในแบบฟอร์มนี้ (ชื่อ การติดต่อ ข้อมูลสุขภาพ) เพื่อวัตถุประสงค์ในการดำเนินการปรึกษาและสั่งซื้อสลิมฮวานเท่านั้น ข้อมูลของคุณจะไม่ถูกแบ่งปันกับบุคคลที่สามโดยไม่ได้รับความยินยอมจากคุณ",
-    lConsent:"ฉันยินยอมให้รวบรวมและใช้ข้อมูลส่วนบุคคลของฉัน",
-    submitBtn:"คัดลอกเพื่อส่งในแชท →",
-    sucTitle:"เหลืออีกขั้นตอนเดียว!",
-    sucSubtitle:"แบบฟอร์มถูกคัดลอกแล้ว แต่ยังไม่ได้ส่งถึงคลินิก กรุณาวางในช่องแชทและกดส่ง",
-    sucStepsTitle:"📋 เพื่อทำการปรึกษาให้เสร็จสมบูรณ์:",
-    sucStep1:"แบบฟอร์มที่กรอกแล้วถูก<strong>คัดลอกไปยังคลิปบอร์ดแล้ว</strong> ✅",
-    sucStep2:"กลับไปที่ห้องแชทที่คุณได้รับลิงก์แบบฟอร์มนี้",
-    sucStep3:"แตะช่องพิมพ์ข้อความ <strong>วาง</strong>แบบฟอร์มที่คัดลอก แล้วกด<strong>ส่ง</strong>",
-    copyAgainBtn:"📋 คัดลอกแบบฟอร์มอีกครั้ง", copiedFeedback:"✅ คัดลอกแล้ว!",
-    sucCopyNote:"หากวางแล้วไม่มีข้อความขึ้น ให้กดคัดลอกแบบฟอร์มอีกครั้ง แล้ววางในแชทใหม่",
-    errRequired:"กรุณากรอกข้อมูลในช่องนี้",
-    errContact:"กรุณาระบุช่องทางการติดต่ออย่างน้อยหนึ่งช่อง",
-    agePH:"อายุ", heightPH:"ซม.", weightPH:"กก.", goalPH:"กก.",
-  },
-  vi: {
-    hdrSub:"Vui lòng chọn ngôn ngữ bên dưới",
-    s1:"Thông tin cá nhân", s2:"Thông tin liên hệ", s3:"Thông tin cơ thể",
-    s4:"Thói quen dùng caffeine", s5:"Lịch sử ăn kiêng", s6:"Thông tin y tế",
-    s7:"Chi tiết đặt hàng", s8:"Ghi chú thêm", s9:"Đồng ý quyền riêng tư",
-    lName:"Họ và tên", lDob:"Ngày sinh", lGender:"Giới tính",
-    gFemale:"Nữ", gMale:"Nam",
-    lPreg:"Bạn có đang mang thai hoặc cho con bú không?",
-    pregYes:"Có", pregNo:"Không",
-    lPhone:"Số điện thoại", lKakao:"KakaoTalk ID", lInsta:"Instagram ID", lLine:"LINE ID",
-    contactNote:"※ Vui lòng điền ít nhất một phương thức liên hệ.",
-    lHeight:"Chiều cao (cm)", lWeight:"Cân nặng hiện tại (kg)", lGoal:"Cân nặng mục tiêu (kg)",
-    lCoffee:"Số tách cà phê mỗi ngày",
-    cof0:"0", cof1:"1", cof2:"2", cof3:"3", cof4:"4+",
-    lCafSens:"Độ nhạy với caffeine",
-    lCafNote:"Bạn có bị hồi hộp hoặc mất ngủ sau khi uống cà phê / trà xanh không?",
-    cafYes:"Có", cafNo:"Không", cafSome:"Đôi khi",
-    lDietExp:"Kinh nghiệm ăn kiêng trước đây",
-    dNone:"Chưa có", dDiet:"Chỉ ăn kiêng/tập thể dục", dWest:"Thuốc tây",
-    dHerb:"Thuốc đông y", dBoth:"Cả hai",
-    lAppetite:"Khi dùng thuốc giảm cân",
-    lAppCtrl:"Kiểm soát cảm giác thèm ăn?", appGood:"Tốt", appMod:"Bình thường", appPoor:"Kém",
-    lSideEff:"Tác dụng phụ?", sideEffPH:"VD: khô miệng, mất ngủ…",
-    lMeds:"Thuốc đang dùng hoặc bệnh lý hiện tại",
-    medsPH:"Không có / Liệt kê bệnh hoặc thuốc",
-    priceTitle:"✦ Bảng giá Slim-Hwan",
-    p1:"1 tháng — ₩150.000", p3:"Từ 3 tháng — ₩130.000 / tháng",
-    pShip:"Phí vận chuyển quốc tế: tính riêng",
-    lMonths:"Bạn muốn đặt mua bao nhiêu tháng?",
-    m1:"1 tháng", m3:"3 tháng", m6:"6 tháng", m12:"12 tháng", mOther:"Khác",
-    lMonthsOther:"Vui lòng ghi rõ (tháng)",
-    lDelivery:"Hình thức nhận hàng",
-    dShip:"Giao hàng", dPick:"Nhận tại phòng khám",
-    lAddr:"Địa chỉ giao hàng", addrPH:"Địa chỉ đầy đủ bao gồm quốc gia",
-    lNotes:"Thông tin thêm bạn muốn chia sẻ", notesPH:"Không bắt buộc…",
-    consentText:"LINE CLINIC thu thập thông tin cá nhân trong biểu mẫu này (tên, liên hệ, thông tin sức khỏe) chỉ nhằm mục đích xử lý tư vấn và đơn hàng Slim-Hwan của bạn. Dữ liệu của bạn sẽ không được chia sẻ với bên thứ ba khi chưa có sự đồng ý của bạn.",
-    lConsent:"Tôi đồng ý với việc thu thập và sử dụng thông tin cá nhân của mình.",
-    submitBtn:"Sao chép để gửi qua Chat →",
-    sucTitle:"Còn một bước nữa!",
-    sucSubtitle:"Biểu mẫu đã được sao chép nhưng chưa được gửi đến phòng khám. Vui lòng dán vào khung chat và gửi.",
-    sucStepsTitle:"📋 Để hoàn tất tư vấn:",
-    sucStep1:"Biểu mẫu đã điền được <strong>sao chép vào clipboard</strong> ✅",
-    sucStep2:"Quay lại phòng chat nơi bạn nhận được link biểu mẫu này.",
-    sucStep3:"Nhấn vào ô nhập tin nhắn, <strong>dán</strong> biểu mẫu đã sao chép, rồi nhấn <strong>Gửi</strong>.",
-    copyAgainBtn:"📋 Sao chép biểu mẫu lại", copiedFeedback:"✅ Đã sao chép!",
-    sucCopyNote:"Nếu không thấy nội dung khi dán, hãy nhấn Sao chép biểu mẫu lại rồi dán vào chat một lần nữa.",
-    errRequired:"Trường này là bắt buộc.",
-    errContact:"Vui lòng cung cấp ít nhất một phương thức liên hệ.",
-    agePH:"Tuổi", heightPH:"cm", weightPH:"kg", goalPH:"kg",
   }
 };
 
@@ -1092,7 +952,7 @@ function setLang(lang) {
   document.documentElement.setAttribute('lang', lang);
   document.documentElement.dataset.currentLang = lang;
   document.querySelectorAll('.lang-btn').forEach((b,i) => {
-    b.classList.toggle('active', ['en','id','ja','zh','th','vi'][i] === lang);
+    b.classList.toggle('active', ['en','ja','zh'][i] === lang);
   });
   applyTranslations(lang);
 }
@@ -1100,7 +960,7 @@ function setLang(lang) {
 function getSelectedLang() {
   const buttons = Array.from(document.querySelectorAll('.lang-btn'));
   const activeIndex = buttons.findIndex(b => b.classList.contains('active'));
-  const langs = ['en','id','ja','zh','th','vi'];
+  const langs = ['en','ja','zh'];
   return document.documentElement.dataset.currentLang || langs[activeIndex] || currentLang || 'en';
 }
 
@@ -1142,7 +1002,7 @@ function applyTranslations(lang) {
   setText('p1', t.p1); setText('p3', t.p3); setText('pship', t.pShip);
   setText('l-months', t.lMonths);
   setText('m1',t.m1); setText('m3',t.m3); setText('m6',t.m6);
-  setText('m12',t.m12); setText('mOther',t.mOther);
+  setText('mOther',t.mOther);
   setText('l-delivery', t.lDelivery);
   setText('d-ship',t.dShip); setText('d-pick',t.dPick);
   setText('l-addr', t.lAddr);
@@ -1174,29 +1034,24 @@ const EXTRA = {
     pCherry:'gentle appetite & craving support / $70 per bottle, $65 each for 2+ bottles',
     pSlim:'standard herbal diet option / $110 for 1 month, $100/month for 3+ months',
     pSlimEx:'stronger intensive diet option / $140 for 1 month, $115/month for 3+ months',
-    paypal:'Payment method can be selected between PayPal and Korean bank transfer. Korean bank transfer does not support overseas remittance (SWIFT).', ship:'International shipping fee: separate', product:'Which product would you like to order?', quantity:'Quantity', otherQty:'Please specify quantity',
-    qNote:'For Cherry Jeong, select the number of bottles. For Slim-Hwan/Slim-EX, select the number of months. Quantity limit: up to 12 months within a 6-month period; Cherry Jeong up to 12 bottles.',
-    address:'Detailed Shipping Address', addrPH:'Full address including country, city, postal code, and recipient name', payment:'Payment method', paypalShort:'PayPal', bankTransferShort:'Korean bank transfer', paymentNote:'Korean bank transfer is available only for domestic Korean transfers. Overseas remittance (SWIFT) is not available.', agreed:'Agreed', bottle:'bottle(s)', month:'month(s)'
-  },
-  id: {
-    phone:'Nomor Telepon', email:'Email', sns:'SNS ID', contact:'※ Nomor telepon dan email wajib diisi. SNS ID opsional.',
-    priceTitle:'✦ Produk & Harga', cherry:'Cherry Jeong', slim:'Slim-Hwan', slimex:'Slim-EX',
-    pCherry:'dukungan ringan untuk nafsu makan dan craving / $70 per botol, $65 per botol untuk 2+ botol',
-    pSlim:'pilihan diet herbal standar / $110 untuk 1 bulan, $100/bulan untuk 3+ bulan',
-    pSlimEx:'pilihan diet intensif yang lebih kuat / $140 untuk 1 bulan, $115/bulan untuk 3+ bulan',
-    paypal:'Metode pembayaran dapat dipilih antara PayPal dan transfer rekening bank Korea. Transfer bank Korea tidak mendukung pengiriman uang luar negeri (SWIFT).', ship:'Biaya pengiriman internasional: terpisah', product:'Produk mana yang ingin Anda pesan?', quantity:'Jumlah', otherQty:'Mohon tuliskan jumlah',
-    qNote:'Untuk Cherry Jeong, pilih jumlah botol. Untuk Slim-Hwan/Slim-EX, pilih jumlah bulan. Batas pembelian: maksimal 12 bulan dalam periode 6 bulan; Cherry Jeong maksimal 12 botol.',
-    address:'Alamat Pengiriman Lengkap', addrPH:'Alamat lengkap termasuk negara, kota, kode pos, dan nama penerima', payment:'Metode pembayaran', paypalShort:'PayPal', bankTransferShort:'Transfer bank Korea', paymentNote:'Transfer rekening bank Korea hanya tersedia untuk transfer domestik di Korea. Pengiriman uang luar negeri (SWIFT) tidak tersedia.', agreed:'Setuju', bottle:'botol', month:'bulan'
-  },
-  ja: {
+    paypal:'Payment is available only in USD via PayPal.',
+    idVerify:'For identity verification, please send a photo of your passport through the chat after submitting this form.',
+    selfOnly:'To prevent resale, payment, delivery, and pickup are available only by the patient themselves.',
+    ship:'International shipping fee: separate', product:'Which product would you like to order?', quantity:'Quantity', otherQty:'Please specify quantity',
+    qNote:'For Cherry Jeong, select the number of bottles. For Slim-Hwan/Slim-EX, select the number of months. Purchase limit: up to 6 months\' supply within a 3-month period.',
+    address:'Detailed Shipping Address', addrPH:'Full address including country, city, and postal code. The recipient must be the patient.', payment:'Payment method', paypalShort:'PayPal (USD only)', paymentNote:'Payment is available only in USD via PayPal and must be made directly by the patient. Payment by another person is not accepted.', deliveryNote:'Delivery or in-clinic pickup is available only by the patient themselves. Proxy pickup or receiving on behalf of another person is not available.', agreed:'Agreed', bottle:'bottle(s)', month:'month(s)', policy:'Order policy', policyText:'PayPal USD payment only / passport photo verification via chat / self-payment and self-receipt only / up to 6 months\' supply within a 3-month period', policyAgreementTitle:'Personal-use / No-resale Agreement', policyAgreementText:'Slim-Hwan is a prescribed Korean herbal medicine that can be provided only after consultation with the doctor for personal use. If circumstances suggesting resale, reselling, proxy purchase, bulk purchase for others, or distribution are found, future purchases may be refused.', policyAgreementCheck:'I understand and agree that Slim-Hwan is for my personal use only, and that future purchases may be refused if resale/reselling is suspected.', policyAgreeLabel:'Personal-use / no-resale policy'
+  },  ja: {
     phone:'携帯電話番号', email:'メールアドレス', sns:'SNS ID', contact:'※ 携帯電話番号とメールアドレスは必須です。SNS IDは任意です。',
     priceTitle:'✦ 商品・価格', cherry:'チェリー錠', slim:'スリム丸', slimex:'スリムEX',
     pCherry:'比較的やさしい食欲・間食ケア / 1本 $70、2本以上は1本 $65',
     pSlim:'標準的な漢方ダイエット / 1か月 $110、3か月以上は1か月 $100',
     pSlimEx:'より強めの集中ダイエット / 1か月 $140、3か月以上は1か月 $115',
-    paypal:'お支払い方法はPayPalまたは韓国口座振込から選択できます。韓国口座振込は海外送金（SWIFT）には対応していません。', ship:'国際送料：別途', product:'ご希望の商品を選択してください', quantity:'数量', otherQty:'数量を入力してください',
-    qNote:'チェリー錠は本数、スリム丸/スリムEXは月数を選択してください。数量制限：6か月間で最大12か月分まで、チェリー錠は最大12本までです。',
-    address:'詳細配送先住所', addrPH:'国、都市、郵便番号、受取人名を含む完全な住所', payment:'支払い方法', paypalShort:'PayPal', bankTransferShort:'韓国口座振込', paymentNote:'韓国口座振込は韓国内送金のみ可能です。海外送金（SWIFT）はご利用いただけません。', agreed:'同意済み', bottle:'本', month:'か月'
+    paypal:'お支払いはPayPalによる米ドル決済のみ可能です。',
+    idVerify:'本人確認のため、フォーム送信後にチャットでパスポート写真をお送りください。',
+    selfOnly:'転売防止のため、お支払い・配送受取・来院受取はご本人のみ可能です。',
+    ship:'国際送料：別途', product:'ご希望の商品を選択してください', quantity:'数量', otherQty:'数量を入力してください',
+    qNote:'チェリー錠は本数、スリム丸/スリムEXは月数を選択してください。購入制限：3か月ごとに最大6か月分までです。',
+    address:'詳細配送先住所', addrPH:'国、都市、郵便番号を含む完全な住所をご記入ください。受取人はご本人に限ります。', payment:'支払い方法', paypalShort:'PayPal（USDのみ）', paymentNote:'お支払いはPayPalによる米ドル決済のみ可能で、必ずご本人が直接お支払いください。代理決済はできません。', deliveryNote:'配送または来院受取はご本人のみ可能です。代理受取はできません。', agreed:'同意済み', bottle:'本', month:'か月', policy:'注文ポリシー', policyText:'PayPal米ドル決済のみ / チャットでパスポート写真確認 / 本人決済・本人受取のみ / 3か月ごとに最大6か月分まで', policyAgreementTitle:'本人使用・転売禁止に関する同意', policyAgreementText:'スリム丸は、ご本人の服用を目的として、院長との相談後に処方可能な韓方薬です。転売、リセール、代理購入、他人のための大量購入、または流通の疑いが確認された場合、以後の購入をお断りすることがあります。', policyAgreementCheck:'スリム丸は本人服用目的のみであり、転売・リセール等が疑われる場合は今後の購入ができなくなる可能性があることを理解し、同意します。', policyAgreeLabel:'本人使用・転売禁止ポリシー'
   },
   zh: {
     phone:'手机号码', email:'电子邮箱', sns:'SNS ID', contact:'※ 手机号码和电子邮箱为必填，SNS ID为选填。',
@@ -1204,40 +1059,20 @@ const EXTRA = {
     pCherry:'温和食欲与零食欲望管理 / 每瓶 $70，2瓶以上每瓶 $65',
     pSlim:'标准韩方减重选择 / 1个月 $110，3个月以上每月 $100',
     pSlimEx:'更强效的集中减重选择 / 1个月 $140，3个月以上每月 $115',
-    paypal:'付款方式可选择 PayPal 或韩国银行账户转账。韩国账户转账不支持海外汇款（SWIFT）。', ship:'国际运费：另计', product:'请选择想订购的产品', quantity:'数量', otherQty:'请填写数量',
-    qNote:'Cherry Jeong请选择瓶数；Slim-Hwan/Slim-EX请选择月份。数量限制：6个月内最多12个月份；Cherry Jeong最多12瓶。',
-    address:'详细配送地址', addrPH:'请填写包含国家、城市、邮编和收件人姓名的完整地址', payment:'付款方式', paypalShort:'PayPal', bankTransferShort:'韩国账户转账', paymentNote:'韩国银行账户转账仅限韩国国内转账，不支持海外汇款（SWIFT）。', agreed:'已同意', bottle:'瓶', month:'个月'
-  },
-  th: {
-    phone:'เบอร์โทรศัพท์มือถือ', email:'อีเมล', sns:'SNS ID', contact:'※ จำเป็นต้องกรอกเบอร์โทรศัพท์และอีเมล ส่วน SNS ID ไม่บังคับ',
-    priceTitle:'✦ สินค้าและราคา', cherry:'Cherry Jeong', slim:'Slim-Hwan', slimex:'Slim-EX',
-    pCherry:'ตัวเลือกที่อ่อนโยนสำหรับช่วยควบคุมความอยากอาหาร / ขวดละ $70, ซื้อ 2 ขวดขึ้นไป ขวดละ $65',
-    pSlim:'ตัวเลือกสมุนไพรลดน้ำหนักมาตรฐาน / 1 เดือน $110, 3 เดือนขึ้นไป เดือนละ $100',
-    pSlimEx:'ตัวเลือกเข้มข้นกว่า / 1 เดือน $140, 3 เดือนขึ้นไป เดือนละ $115',
-    paypal:'สามารถเลือกวิธีชำระเงินเป็น PayPal หรือโอนเข้าบัญชีธนาคารเกาหลีได้ การโอนเข้าบัญชีเกาหลีไม่รองรับการโอนเงินระหว่างประเทศ (SWIFT)', ship:'ค่าจัดส่งระหว่างประเทศ: แยกต่างหาก', product:'ต้องการสั่งสินค้าใด?', quantity:'จำนวน', otherQty:'กรุณาระบุจำนวน',
-    qNote:'Cherry Jeong ให้เลือกจำนวนขวด ส่วน Slim-Hwan/Slim-EX ให้เลือกจำนวนเดือน จำกัดจำนวน: สูงสุด 12 เดือนภายในระยะเวลา 6 เดือน; Cherry Jeong สูงสุด 12 ขวด',
-    address:'ที่อยู่จัดส่งโดยละเอียด', addrPH:'ที่อยู่เต็ม รวมประเทศ เมือง รหัสไปรษณีย์ และชื่อผู้รับ', payment:'วิธีชำระเงิน', paypalShort:'PayPal', bankTransferShort:'โอนเข้าบัญชีธนาคารเกาหลี', paymentNote:'การโอนเข้าบัญชีธนาคารเกาหลีรองรับเฉพาะการโอนภายในประเทศเกาหลีเท่านั้น ไม่สามารถโอนเงินระหว่างประเทศ (SWIFT) ได้', agreed:'ยินยอมแล้ว', bottle:'ขวด', month:'เดือน'
-  },
-  vi: {
-    phone:'Số điện thoại', email:'Email', sns:'SNS ID', contact:'※ Số điện thoại và email là bắt buộc. SNS ID là tùy chọn.',
-    priceTitle:'✦ Sản phẩm & Giá', cherry:'Cherry Jeong', slim:'Slim-Hwan', slimex:'Slim-EX',
-    pCherry:'hỗ trợ nhẹ nhàng kiểm soát thèm ăn / $70 mỗi lọ, $65 mỗi lọ khi mua từ 2 lọ',
-    pSlim:'lựa chọn giảm cân thảo dược tiêu chuẩn / 1 tháng $110, từ 3 tháng $100/tháng',
-    pSlimEx:'lựa chọn giảm cân chuyên sâu mạnh hơn / 1 tháng $140, từ 3 tháng $115/tháng',
-    paypal:'Có thể chọn phương thức thanh toán qua PayPal hoặc chuyển khoản ngân hàng Hàn Quốc. Chuyển khoản ngân hàng Hàn Quốc không hỗ trợ chuyển tiền quốc tế (SWIFT).', ship:'Phí vận chuyển quốc tế: tính riêng', product:'Bạn muốn đặt sản phẩm nào?', quantity:'Số lượng', otherQty:'Vui lòng nhập số lượng',
-    qNote:'Với Cherry Jeong, chọn số lọ. Với Slim-Hwan/Slim-EX, chọn số tháng. Giới hạn: tối đa 12 tháng trong vòng 6 tháng; Cherry Jeong tối đa 12 lọ.',
-    address:'Địa chỉ giao hàng chi tiết', addrPH:'Địa chỉ đầy đủ gồm quốc gia, thành phố, mã bưu chính và tên người nhận', payment:'Phương thức thanh toán', paypalShort:'PayPal', bankTransferShort:'Chuyển khoản ngân hàng Hàn Quốc', paymentNote:'Chuyển khoản ngân hàng Hàn Quốc chỉ áp dụng cho chuyển khoản nội địa tại Hàn Quốc. Không hỗ trợ chuyển tiền quốc tế (SWIFT).', agreed:'Đã đồng ý', bottle:'lọ', month:'tháng'
+    paypal:'仅支持通过 PayPal 以美元付款。',
+    idVerify:'为进行本人身份确认，请在提交表格后通过聊天发送护照照片。',
+    selfOnly:'为防止转售，付款、配送收件及到院领取仅限患者本人。',
+    ship:'国际运费：另计', product:'请选择想订购的产品', quantity:'数量', otherQty:'请填写数量',
+    qNote:'Cherry Jeong请选择瓶数；Slim-Hwan/Slim-EX请选择月份。购买限制：每3个月最多可购买6个月份。',
+    address:'详细配送地址', addrPH:'请填写包含国家、城市和邮编的完整地址。收件人必须为患者本人。', payment:'付款方式', paypalShort:'PayPal（仅限USD）', paymentNote:'仅支持通过 PayPal 以美元付款，且必须由患者本人直接付款。不接受他人代付。', deliveryNote:'配送或到院领取仅限患者本人。不提供代领或代收。', agreed:'已同意', bottle:'瓶', month:'个月', policy:'订单政策', policyText:'仅限PayPal美元付款 / 通过聊天提交护照照片确认身份 / 仅限本人付款与本人收取 / 每3个月最多6个月份', policyAgreementTitle:'本人使用 / 禁止转售同意', policyAgreementText:'Slim-Hwan 是需经院长咨询后，方可为本人服用目的开具的韩方药。如发现转售、倒卖、代购、为他人大量购买或分销等相关迹象，今后可能无法继续购买。', policyAgreementCheck:'我理解并同意 Slim-Hwan 仅限本人服用；如被怀疑存在转售/倒卖等情况，今后可能无法继续购买。', policyAgreeLabel:'本人使用 / 禁止转售政策'
   }
 };
 
 
 const CONSENT_EXTRA = {
-  en: 'LINE CLINIC collects the personal information provided in this form (name, contact, health information, order details, and shipping information) solely for the purpose of processing your diet consultation, order, and payment guidance. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.',
-  id: 'LINE CLINIC mengumpulkan informasi pribadi yang diberikan dalam formulir ini (nama, kontak, informasi kesehatan, detail pesanan, dan informasi pengiriman) hanya untuk konsultasi diet, pesanan, dan panduan pembayaran. Data Anda tidak akan dibagikan kepada pihak ketiga tanpa persetujuan dan akan disimpan dengan aman sesuai hukum privasi yang berlaku.',
-  ja: 'LINE CLINICは、本フォームに記入された個人情報（氏名、連絡先、健康情報、注文内容、配送情報）を、ダイエット相談、注文、決済案内の目的でのみ収集します。ご本人の同意なく第三者に共有せず、適用される個人情報保護法に従って安全に保管します。',
-  zh: 'LINE CLINIC 仅为处理减重咨询、订单及付款指引而收集本表中填写的个人信息（姓名、联系方式、健康信息、订单详情和配送信息）。未经同意不会向第三方共享，并将依据相关隐私法律安全保存。',
-  th: 'LINE CLINIC จะเก็บข้อมูลส่วนบุคคลที่กรอกในแบบฟอร์มนี้ (ชื่อ ข้อมูลติดต่อ ข้อมูลสุขภาพ รายละเอียดการสั่งซื้อ และข้อมูลจัดส่ง) เพื่อใช้สำหรับการปรึกษาลดน้ำหนัก การสั่งซื้อ และคำแนะนำการชำระเงิน เท่านั้น และจะไม่เปิดเผยแก่บุคคลที่สามโดยไม่ได้รับความยินยอม',
-  vi: 'LINE CLINIC thu thập thông tin cá nhân được cung cấp trong biểu mẫu này (tên, liên hệ, thông tin sức khỏe, chi tiết đơn hàng và thông tin giao hàng) chỉ nhằm mục đích tư vấn giảm cân, xử lý đơn hàng và hướng dẫn thanh toán. Dữ liệu của bạn sẽ không được chia sẻ với bên thứ ba nếu không có sự đồng ý.'
+  en: 'LINE CLINIC collects the personal information provided in this form and chat (name, contact, health information, order details, shipping information, and passport photo for identity verification) solely for the purpose of processing your diet consultation, order, identity verification, and payment guidance. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.',
+  ja: 'LINE CLINICは、本フォームおよびチャットで提供された個人情報（氏名、連絡先、健康情報、注文内容、配送情報、本人確認用のパスポート写真）を、ダイエット相談、注文、本人確認、決済案内の目的でのみ収集します。ご本人の同意なく第三者に共有せず、適用される個人情報保護法に従って安全に保管します。',
+  zh: 'LINE CLINIC 仅为处理减重咨询、订单、本人身份确认及付款指引而收集本表格和聊天中提供的个人信息（姓名、联系方式、健康信息、订单详情、配送信息及用于身份确认的护照照片）。未经同意不会向第三方共享，并将依据相关隐私法律安全保存。',
 };
 
 function setExtraLabel(id, val, required=false) {
@@ -1256,24 +1091,29 @@ function applyExtraTranslations(lang) {
   if (document.getElementById('p-slim')) document.getElementById('p-slim').innerHTML = `<span class="price-highlight">${x.slim}</span> — ${x.pSlim}`;
   if (document.getElementById('p-slimex')) document.getElementById('p-slimex').innerHTML = `<span class="price-highlight">${x.slimex}</span> — ${x.pSlimEx}`;
   setText('p-paypal', x.paypal);
+  setText('p-idverify', x.idVerify);
+  setText('p-selfonly', x.selfOnly);
   setText('pship', x.ship);
   setExtraLabel('l-payment', x.payment, true);
   setText('pay-paypal', x.paypalShort || 'PayPal');
-  setText('pay-bank', x.bankTransferShort || 'Korean bank transfer');
-  setText('payment-note', x.paymentNote || 'Korean bank transfer is available only for domestic Korean transfers. Overseas remittance (SWIFT) is not available.');
+  setText('payment-note', x.paymentNote || 'Payment is available only in USD via PayPal and must be made directly by the patient. Payment by another person is not accepted.');
   setExtraLabel('l-product', x.product, true);
   setText('prod-cherry', x.cherry);
   setText('prod-slim', x.slim);
   setText('prod-slimex', x.slimex);
   setExtraLabel('l-months', x.quantity, true);
-  setText('m1','1'); setText('m2','2'); setText('m3','3'); setText('m6','6'); setText('m12','12'); setText('mOther', (T[lang] && T[lang].mOther) || 'Other');
+  setText('m1','1'); setText('m2','2'); setText('m3','3'); setText('m6','6'); setText('mOther', (T[lang] && T[lang].mOther) || 'Other');
   setExtraLabel('l-months-other', x.otherQty, true);
-  const mo = document.getElementById('f-months-other'); if (mo) mo.placeholder = '1–12';
+  const mo = document.getElementById('f-months-other'); if (mo) mo.placeholder = '1–6';
   setText('quantity-note', x.qNote);
   setExtraLabel('l-addr', x.address, true);
   const addr = document.getElementById('f-addr'); if (addr) addr.placeholder = x.addrPH;
+  setText('delivery-note', x.deliveryNote || 'Delivery or in-clinic pickup is available only by the patient themselves. Proxy pickup or receiving on behalf of another person is not available.');
   if (CONSENT_EXTRA[lang]) setText('consent-text', CONSENT_EXTRA[lang]);
   if (T[lang] && T[lang].lConsent) setExtraLabel('l-consent', T[lang].lConsent, true);
+  setText('s10-title', x.policyAgreementTitle || 'Personal-use / No-resale Agreement');
+  setText('policy-agreement-text', x.policyAgreementText || EXTRA.en.policyAgreementText);
+  setExtraLabel('l-policy-consent', x.policyAgreementCheck || EXTRA.en.policyAgreementCheck, true);
 }
 
 const _baseApplyTranslations = applyTranslations;
@@ -1339,6 +1179,9 @@ document.querySelectorAll('input[name=product], input[name=payment]').forEach(r 
 /* ══════════════════════════════════════
    VALIDATION & SUBMIT
 ══════════════════════════════════════ */
+const paypalInput = document.querySelector("input[name=payment][value=paypal]");
+if (paypalInput) paypalInput.checked = true;
+
 document.getElementById('mainForm').addEventListener('submit', function(e) {
   e.preventDefault();
   if (!validateForm()) {
@@ -1404,7 +1247,7 @@ function validateForm() {
 
   const monthsSel = document.querySelector('input[name=months]:checked');
   if (monthsSel && monthsSel.value === 'other') {
-    if (!req('f-months-other', v => { const n = Number(v); return Number.isFinite(n) && n >= 1 && n <= 12; })) valid = false;
+    if (!req('f-months-other', v => { const n = Number(v); return Number.isFinite(n) && n >= 1 && n <= 6; })) valid = false;
   }
 
   const cons = document.getElementById('f-consent');
@@ -1415,6 +1258,16 @@ function validateForm() {
     valid = false;
   } else {
     cons.closest('.section').style.outline = '';
+  }
+
+  const policyCons = document.getElementById('f-policy-consent');
+  if (policyCons && !policyCons.checked) {
+    policyCons.closest('.section').style.outline = '2px solid var(--error)';
+    policyCons.closest('.section').style.borderRadius = '14px';
+    policyCons.closest('.section').style.outlineOffset = '2px';
+    valid = false;
+  } else if (policyCons) {
+    policyCons.closest('.section').style.outline = '';
   }
 
   return valid;
@@ -1439,7 +1292,7 @@ function buildMessage() {
   const appLabels = { good: t.appGood, moderate: t.appMod, poor: t.appPoor };
   const cafSensLabels = { yes: t.cafYes, no: t.cafNo, sometimes: t.cafSome };
   const productLabels = { cherry: x.cherry, slimhwan: x.slim, slimex: x.slimex };
-  const paymentLabels = { paypal: x.paypalShort, korean_bank: x.bankTransferShort || 'Korean bank transfer' };
+  const paymentLabels = { paypal: x.paypalShort || 'PayPal (USD only)' };
   const delLabels = { ship: t.dShip, pickup: t.dPick };
   const pregLabels = { yes: t.pregYes, no: t.pregNo };
 
@@ -1546,19 +1399,7 @@ const SUCCESS_TEXT = {
     copyAgainBtn: '📋 Copy form again', copiedFeedback: '✅ Copied!',
     copyNote: 'If nothing appears when you paste, tap Copy form again and paste into the chat once more.',
     whatsappLabel: 'Need help? Contact us on WhatsApp'
-  },
-  id: {
-    title: 'Satu langkah lagi!',
-    subtitle: 'Formulir Anda telah disalin, tetapi belum terkirim ke klinik. Silakan tempelkan ke chat dan kirim.',
-    stepsTitle: '📋 Untuk menyelesaikan konsultasi:',
-    step1: 'Formulir yang telah diisi sudah <strong>disalin ke clipboard</strong> ✅',
-    step2: 'Kembali ke ruang chat tempat Anda menerima tautan formulir ini.',
-    step3: 'Ketuk kotak pesan, <strong>tempel</strong> formulir yang disalin, lalu tekan <strong>Kirim</strong>.',
-    copyAgainBtn: '📋 Salin formulir lagi', copiedFeedback: '✅ Tersalin!',
-    copyNote: 'Jika tidak muncul saat ditempel, ketuk Salin formulir lagi lalu tempelkan ke chat.',
-    whatsappLabel: 'Butuh bantuan? Hubungi kami melalui WhatsApp'
-  },
-  ja: {
+  },  ja: {
     title: 'あと1ステップです！',
     subtitle: 'フォーム内容はコピーされましたが、まだクリニックには送信されていません。チャットに貼り付けて送信してください。',
     stepsTitle: '📋 相談を完了するには：',
@@ -1579,28 +1420,6 @@ const SUCCESS_TEXT = {
     copyAgainBtn: '📋 重新复制表格', copiedFeedback: '✅ 已复制！',
     copyNote: '如果粘贴时没有内容，请点击重新复制后再次粘贴到聊天。',
     whatsappLabel: '需要帮助？请通过 WhatsApp 联系我们'
-  },
-  th: {
-    title: 'เหลืออีกหนึ่งขั้นตอน!',
-    subtitle: 'แบบฟอร์มถูกคัดลอกแล้ว แต่ยังไม่ได้ส่งให้คลินิก กรุณาวางลงในแชทและส่งข้อความ',
-    stepsTitle: '📋 เพื่อให้การปรึกษาเสร็จสมบูรณ์:',
-    step1: 'แบบฟอร์มที่กรอกแล้วถูก<strong>คัดลอกไปยังคลิปบอร์ด</strong> ✅',
-    step2: 'กลับไปยังห้องแชทที่ได้รับลิงก์แบบฟอร์มนี้',
-    step3: 'แตะช่องข้อความ <strong>วาง</strong> แบบฟอร์มที่คัดลอก แล้วแตะ <strong>ส่ง</strong>',
-    copyAgainBtn: '📋 คัดลอกแบบฟอร์มอีกครั้ง', copiedFeedback: '✅ คัดลอกแล้ว!',
-    copyNote: 'หากวางแล้วไม่ปรากฏข้อความ ให้กดคัดลอกอีกครั้งแล้ววางในแชทอีกครั้ง',
-    whatsappLabel: 'ต้องการความช่วยเหลือ? ติดต่อเราทาง WhatsApp'
-  },
-  vi: {
-    title: 'Còn một bước nữa!',
-    subtitle: 'Biểu mẫu đã được sao chép nhưng chưa được gửi đến phòng khám. Vui lòng dán vào khung chat và gửi.',
-    stepsTitle: '📋 Để hoàn tất tư vấn:',
-    step1: 'Biểu mẫu đã điền được <strong>sao chép vào clipboard</strong> ✅',
-    step2: 'Quay lại phòng chat nơi bạn nhận được link biểu mẫu này.',
-    step3: 'Nhấn vào ô tin nhắn, <strong>dán</strong> biểu mẫu đã sao chép, rồi nhấn <strong>Gửi</strong>.',
-    copyAgainBtn: '📋 Sao chép lại biểu mẫu', copiedFeedback: '✅ Đã sao chép!',
-    copyNote: 'Nếu không thấy nội dung khi dán, hãy nhấn Sao chép lại biểu mẫu rồi dán vào chat một lần nữa.',
-    whatsappLabel: 'Cần hỗ trợ? Liên hệ với chúng tôi qua WhatsApp'
   }
 };
 
