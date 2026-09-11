@@ -428,6 +428,57 @@
     .quantity-entry-row > input[type="number"] { width: 100%; flex-basis: auto; }
   }
 
+  /* ── Line Detox ── */
+  .detox-choice-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .detox-choice-group label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--mid);
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.5;
+    transition: all .2s;
+    margin: 0;
+  }
+  .detox-choice-group input[type=checkbox] { display: none; }
+  .detox-choice-group label:has(input:checked) {
+    background: #111111;
+    border-color: #111111;
+    color: #ffffff;
+  }
+  .detox-option-name { font-weight: 500; }
+  .detox-product {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #999999;
+    white-space: nowrap;
+  }
+  .detox-choice-group label:has(input:checked) .detox-product { color: #dddddd; }
+  .detox-price-card {
+    margin-top: 12px;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #f7f7f7;
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+  .detox-price-card strong { color: #111111; font-weight: 600; }
+  .detox-final-note { margin-top: 6px; font-size: 11px; color: var(--light); line-height: 1.5; }
+
   /* ── Consent ── */
   .consent-box {
     background: var(--cream);
@@ -775,18 +826,56 @@
 
   </div>
 
-  <!-- §8 Notes -->
+  <!-- §8 Line Detox -->
+  <div class="section" id="detox-section">
+    <div class="section-title"><span class="section-num">8</span><span id="detox-title">Line Detox</span></div>
+
+    <div class="field">
+      <label id="detox-question">Please select any concerns you have in addition to weight management. (For reference when prescribing Line Detox Hwan.) <span class="req">*</span></label>
+      <div class="detox-choice-group" id="detox-group">
+        <label>
+          <input type="checkbox" name="detox" value="none" id="detox-none">
+          <span class="detox-option-name" id="detox-none-text">None</span>
+          <span class="detox-product"></span>
+        </label>
+        <label>
+          <input type="checkbox" name="detox" value="constipation">
+          <span class="detox-option-name" id="detox-constipation-text">Constipation</span>
+          <span class="detox-product" id="detox-constipation-product">Bioom Hwan</span>
+        </label>
+        <label>
+          <input type="checkbox" name="detox" value="menstrual">
+          <span class="detox-option-name" id="detox-menstrual-text">Menstrual pain / irregular periods</span>
+          <span class="detox-product" id="detox-menstrual-product">Cheongdam Hwan</span>
+        </label>
+        <label>
+          <input type="checkbox" name="detox" value="swelling">
+          <span class="detox-option-name" id="detox-swelling-text">Swelling / puffiness</span>
+          <span class="detox-product" id="detox-swelling-product">Butgi Hwan</span>
+        </label>
+        <label>
+          <input type="checkbox" name="detox" value="sleep">
+          <span class="detox-option-name" id="detox-sleep-text">Sleep difficulty / insomnia</span>
+          <span class="detox-product" id="detox-sleep-product">Sinbi Hwan</span>
+        </label>
+      </div>
+      <div class="detox-price-card" id="detox-price"><strong>Line Detox Hwan</strong> · ₩30,000 per bottle</div>
+      <div class="detox-final-note" id="detox-note">The final recommendation may be adjusted after consultation.</div>
+    </div>
+  </div>
+
+  <!-- §9 Notes -->
   <div class="section">
-    <div class="section-title"><span class="section-num">8</span><span id="s8-title">Additional Notes</span></div>
+    <div class="section-title"><span class="section-num">9</span><span id="s8-title">Additional Notes</span></div>
     <div class="field">
       <label id="l-notes">Any additional information you'd like to share</label>
       <textarea id="f-notes" rows="4" placeholder="Optional…"></textarea>
     </div>
   </div>
 
-  <!-- §9 Consent -->
+  <!-- §10 Consent -->
   <div class="section">
-    <div class="section-title"><span class="section-num">9</span><span id="s9-title">Privacy Consent</span></div>
+    <div class="section-title"><span class="section-num">10</span><span id="s9-title">Privacy Consent</span></div>
     <div class="consent-box" id="consent-text">
       LINE CLINIC collects the personal information provided in this form (name, nationality, contact, health information) solely for the purpose of processing your Slim-Hwan consultation and order. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.
     </div>
@@ -1274,6 +1363,37 @@ const EXTRA = {
 };
 
 
+const DETOX_TEXT = {
+  en: {
+    title:'Line Detox',
+    question:'Please select any concerns you have in addition to weight management. (For reference when prescribing Line Detox Hwan.)',
+    none:'None', constipation:'Constipation', menstrual:'Menstrual pain / irregular periods', swelling:'Swelling / puffiness', sleep:'Sleep difficulty / insomnia',
+    bioom:'Bioom Hwan', cheongdam:'Cheongdam Hwan', butgi:'Butgi Hwan', sinbi:'Sinbi Hwan',
+    price:'<strong>Line Detox Hwan</strong> · ₩30,000 per bottle',
+    note:'The final recommendation may be adjusted after consultation.',
+    summary:'Line Detox concerns'
+  },
+  ja: {
+    title:'ラインデトックス',
+    question:'ダイエット以外に気になる症状があれば選択してください。（ラインデトックス丸の処方参考）',
+    none:'なし', constipation:'便秘', menstrual:'生理痛・生理不順', swelling:'むくみ', sleep:'不眠・睡眠のお悩み',
+    bioom:'Bioom Hwan', cheongdam:'Cheongdam Hwan', butgi:'Butgi Hwan', sinbi:'Sinbi Hwan',
+    price:'<strong>Line Detox Hwan</strong> · 1本 ₩30,000',
+    note:'最終的なご提案は、診察内容により調整される場合があります。',
+    summary:'ラインデトックスのお悩み'
+  },
+  zh: {
+    title:'Line Detox',
+    question:'除减重以外，如有其他困扰请勾选。（用于 Line Detox 丸处方参考）',
+    none:'无', constipation:'便秘', menstrual:'痛经 / 月经不规律', swelling:'浮肿 / 水肿', sleep:'失眠 / 睡眠困扰',
+    bioom:'Bioom Hwan', cheongdam:'Cheongdam Hwan', butgi:'Butgi Hwan', sinbi:'Sinbi Hwan',
+    price:'<strong>Line Detox Hwan</strong> · 每瓶 ₩30,000',
+    note:'最终建议可能会根据咨询结果进行调整。',
+    summary:'Line Detox 相关困扰'
+  }
+};
+
+
 const CONSENT_EXTRA = {
   en: 'LINE CLINIC collects the personal information provided in this form (name, nationality, contact, health information, and order details) solely for the purpose of processing your diet consultation and order. Your data will not be shared with third parties without your consent and will be stored securely in accordance with applicable privacy laws. You have the right to withdraw consent at any time by contacting us.',
   id: 'LINE CLINIC mengumpulkan informasi pribadi yang diberikan dalam formulir ini (nama, kontak, informasi kesehatan, detail pesanan, dan informasi pengiriman) hanya untuk konsultasi diet, pesanan, dan panduan pembayaran. Data Anda tidak akan dibagikan kepada pihak ketiga tanpa persetujuan dan akan disimpan dengan aman sesuai hukum privasi yang berlaku.',
@@ -1311,6 +1431,22 @@ function applyExtraTranslations(lang) {
   setText('quantity-note', x.qNote);
   if (CONSENT_EXTRA[lang]) setText('consent-text', CONSENT_EXTRA[lang]);
   if (T[lang] && T[lang].lConsent) setExtraLabel('l-consent', T[lang].lConsent, true);
+
+  const d = DETOX_TEXT[lang] || DETOX_TEXT.en;
+  setText('detox-title', d.title);
+  setExtraLabel('detox-question', d.question, true);
+  setText('detox-none-text', d.none);
+  setText('detox-constipation-text', d.constipation);
+  setText('detox-menstrual-text', d.menstrual);
+  setText('detox-swelling-text', d.swelling);
+  setText('detox-sleep-text', d.sleep);
+  setText('detox-constipation-product', d.bioom);
+  setText('detox-menstrual-product', d.cheongdam);
+  setText('detox-swelling-product', d.butgi);
+  setText('detox-sleep-product', d.sinbi);
+  const detoxPrice = document.getElementById('detox-price');
+  if (detoxPrice) detoxPrice.innerHTML = d.price;
+  setText('detox-note', d.note);
 }
 
 const _baseApplyTranslations = applyTranslations;
@@ -1382,6 +1518,21 @@ document.querySelectorAll('input[name=product]').forEach(r => {
   });
 });
 
+/* ── Line Detox: multiple choice, except None ── */
+const detoxInputs = Array.from(document.querySelectorAll('input[name=detox]'));
+const detoxNone = document.getElementById('detox-none');
+detoxInputs.forEach(cb => {
+  cb.addEventListener('change', function() {
+    if (this.value === 'none' && this.checked) {
+      detoxInputs.forEach(other => { if (other !== this) other.checked = false; });
+    } else if (this.checked && detoxNone) {
+      detoxNone.checked = false;
+    }
+    const group = document.getElementById('detox-group');
+    if (group) group.style.outline = '';
+  });
+});
+
 /* ══════════════════════════════════════
    VALIDATION & SUBMIT
 ══════════════════════════════════════ */
@@ -1431,6 +1582,19 @@ function validateForm() {
   ['gender','coffee','caffeine_sens','diet_exp','product','delivery'].forEach(name => {
     if (!reqGroup(name)) valid = false;
   });
+
+  const detoxSelected = document.querySelectorAll('input[name=detox]:checked');
+  const detoxGroup = document.getElementById('detox-group');
+  if (!detoxSelected.length) {
+    if (detoxGroup) {
+      detoxGroup.style.outline = '2px solid var(--error)';
+      detoxGroup.style.borderRadius = '8px';
+      detoxGroup.style.outlineOffset = '4px';
+    }
+    valid = false;
+  } else if (detoxGroup) {
+    detoxGroup.style.outline = '';
+  }
 
   const productSel = document.querySelector('input[name=product]:checked');
   const qtyConsult = document.getElementById('f-quantity-consult').checked;
@@ -1530,6 +1694,18 @@ function buildMessage() {
   }
   msg += `▶ ${t.lDelivery}: ${delLabels[delivery] || '-'}
 `;
+
+  const d = DETOX_TEXT[currentLang] || DETOX_TEXT.en;
+  const detoxValues = Array.from(document.querySelectorAll('input[name=detox]:checked')).map(el => el.value);
+  const detoxLabels = {
+    none: d.none,
+    constipation: `${d.constipation} → ${d.bioom}`,
+    menstrual: `${d.menstrual} → ${d.cheongdam}`,
+    swelling: `${d.swelling} → ${d.butgi}`,
+    sleep: `${d.sleep} → ${d.sinbi}`
+  };
+  const detoxSummary = detoxValues.length ? detoxValues.map(v => detoxLabels[v]).join(', ') : '-';
+  msg += `▶ ${d.summary}: ${detoxSummary}\n`;
 
   const notes = v('f-notes');
   if (notes && notes !== '-') msg += `\n▶ ${t.lNotes}: ${notes}\n`;
