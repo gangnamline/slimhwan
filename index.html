@@ -818,10 +818,15 @@
     <div class="field">
       <label id="l-delivery">Delivery preference <span class="req">*</span></label>
       <div class="radio-group delivery-group">
-        <label><input type="radio" name="delivery" value="ship"><span id="d-ship">Delivery</span></label>
+        <label><input type="radio" name="delivery" value="domestic"><span id="d-domestic">Domestic delivery</span></label>
+        <label><input type="radio" name="delivery" value="international"><span id="d-international">International delivery</span></label>
         <label><input type="radio" name="delivery" value="pickup"><span id="d-pick">In-clinic pickup</span></label>
       </div>
-      <p class="note quantity-note-card conditional" id="pickup-payment-note">For in-clinic pickup, please make an appointment before visiting.</p>
+      <div class="field conditional" id="international-country-field" style="margin-top:14px;">
+      <label id="l-shipping-country" for="f-shipping-country">Destination country <span class="req">*</span></label>
+      <input type="text" id="f-shipping-country" placeholder="Enter destination country" autocomplete="country-name">
+    </div>
+    <p class="note quantity-note-card conditional" id="pickup-payment-note">For in-clinic pickup, please make an appointment before visiting.</p>
     </div>
 
   </div>
@@ -1219,6 +1224,15 @@ const T = {
   }
 };
 
+const DELIVERY_TEXT = {
+  en: {domestic:'Domestic delivery', international:'International delivery', country:'Destination country', placeholder:'Enter destination country'},
+  ja: {domestic:'韓国内配送', international:'海外配送', country:'配送先の国', placeholder:'配送先の国名を入力してください'},
+  zh: {domestic:'韩国国内配送', international:'国际配送', country:'收货国家', placeholder:'请输入收货国家'},
+  id: {domestic:'Pengiriman domestik (Korea)', international:'Pengiriman internasional', country:'Negara tujuan', placeholder:'Masukkan negara tujuan'},
+  th: {domestic:'จัดส่งภายในเกาหลี', international:'จัดส่งต่างประเทศ', country:'ประเทศปลายทาง', placeholder:'ระบุประเทศปลายทาง'},
+  vi: {domestic:'Giao hàng nội địa Hàn Quốc', international:'Giao hàng quốc tế', country:'Quốc gia nhận hàng', placeholder:'Nhập quốc gia nhận hàng'}
+};
+
 let currentLang = 'en';
 
 function setLang(lang) {
@@ -1278,6 +1292,11 @@ function applyTranslations(lang) {
   setText('m1',t.m1); setText('m3',t.m3); setText('m6',t.m6);
   setText('m12',t.m12);
   setText('l-delivery', t.lDelivery);
+  const dt = DELIVERY_TEXT[lang] || DELIVERY_TEXT.en;
+  setText('d-domestic', dt.domestic);
+  setText('d-international', dt.international);
+  setExtraLabel('l-shipping-country', dt.country, true);
+  document.getElementById('f-shipping-country').placeholder = dt.placeholder;
   setText('d-ship',t.dShip); setText('d-pick',t.dPick);
   setText('l-notes', t.lNotes);
   document.getElementById('f-notes').placeholder = t.notesPH;
@@ -1492,6 +1511,8 @@ document.querySelectorAll('input[name=diet_exp]').forEach(r => {
 document.querySelectorAll('input[name=delivery]').forEach(r => {
   r.addEventListener('change', function() {
     document.getElementById('pickup-payment-note').classList.toggle('visible', this.value === 'pickup');
+    document.getElementById('international-country-field').classList.toggle('visible', this.value === 'international');
+    if (this.value !== 'international') document.getElementById('f-shipping-country').classList.remove('error');
   });
 });
 
@@ -1583,6 +1604,12 @@ function validateForm() {
     if (!reqGroup(name)) valid = false;
   });
 
+  if (document.querySelector('input[name=delivery]:checked')?.value === 'international') {
+    if (!req('f-shipping-country')) valid = false;
+  } else {
+    document.getElementById('f-shipping-country').classList.remove('error');
+  }
+
   const detoxSelected = document.querySelectorAll('input[name=detox]:checked');
   const detoxGroup = document.getElementById('detox-group');
   if (!detoxSelected.length) {
@@ -1650,7 +1677,7 @@ function buildMessage() {
   const appLabels = { good: t.appGood, moderate: t.appMod, poor: t.appPoor };
   const cafSensLabels = { yes: t.cafYes, no: t.cafNo, sometimes: t.cafSome };
   const productLabels = { cherry: x.cherry, slimhwan: x.slim, slimex: x.slimex, consult: x.consult || 'Decide after consultation' };
-  const delLabels = { ship: t.dShip, pickup: t.dPick };
+  const delLabels = { domestic: DELIVERY_TEXT[currentLang].domestic, international: DELIVERY_TEXT[currentLang].international, pickup: t.dPick };
   const pregLabels = { yes: t.pregYes, no: t.pregNo };
 
   let msg = `[LINE CLINIC – Diet Consultation & Order]\n\n`;
@@ -1693,6 +1720,8 @@ function buildMessage() {
 `;
   }
   msg += `▶ ${t.lDelivery}: ${delLabels[delivery] || '-'}
+`;
+  if (delivery === 'international') msg += `▶ ${DELIVERY_TEXT[currentLang].country}: ${v('f-shipping-country')}
 `;
 
   const d = DETOX_TEXT[currentLang] || DETOX_TEXT.en;
